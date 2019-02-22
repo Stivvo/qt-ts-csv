@@ -27,6 +27,8 @@
 
 #include <private/qzipreader_p.h>
 
+#include <QVector>
+
 namespace QXlsx {
 
 ZipReader::ZipReader(const QString &filePath) :
