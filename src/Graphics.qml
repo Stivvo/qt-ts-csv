@@ -14,7 +14,7 @@ ApplicationWindow {
     minimumWidth: 500
 
     visible: true
-    title: qsTr("Converter")
+    title: qsTr("Converter ") + version
 
     Rectangle {
         id: r_Source

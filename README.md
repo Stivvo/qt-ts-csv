@@ -17,9 +17,9 @@ The build directoy have to be named "build-qt-ts-csv".
 ![example conversion xlsx to ts](./doc/xlsx2ts.png)  
 ### How to use windeployqt  
 ```
-your\path\to\your\qt\compiler\bin\windeployqt.exe --no-translations --qmldir your\path\to\qt-ts-csv\src your\path\to\build-qt-ts-csv\src\release  
+your\path\to\your\qt\compiler\bin\windeployqt.exe --no-translations --qmldir=your\path\to\qt-ts-csv\src your\path\to\build-qt-ts-csv\src\release  
 ```
 #### Example:  
 ```
-C:\Qt\5.12.1\mingw73_64\bin\windeployqt.exe --no-translations --qmldir C:\Users\prog1\Desktop\qt-ts-csv\src C:\Users\prog1\Desktop\build-qt-ts-csv\src\release  
+C:\Qt\5.12.1\mingw73_64\bin\windeployqt.exe --no-translations --qmldir=C:\Users\prog1\Desktop\qt-ts-csv\src C:\Users\prog1\Desktop\build-qt-ts-csv\src\release  
 ```

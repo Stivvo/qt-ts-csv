@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "qt-ts-csv"
-#define MyAppVersion "1.1.0"
+#define MyAppVersion "2.0.0"
 #define MyAppPublisher "My Company, Inc."
 #define MyAppURL "http://www.example.com/"
 #define MyAppExeName "src.exe"
@@ -23,7 +23,7 @@ DefaultDirName={pf}\{#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=.\LICENSE
 OutputDir=.
-OutputBaseFilename=setup_qt-ts-csv_1.1.0
+OutputBaseFilename=setup-{#MyAppName}-{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
 
