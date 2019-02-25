@@ -2,6 +2,6 @@ TEMPLATE = subdirs
 
 SUBDIRS = src
 
-CONFIG(release, debug|release) {
+CONFIG(debug, debug|release) {
     SUBDIRS += tests
 }
