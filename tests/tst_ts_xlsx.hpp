@@ -22,8 +22,8 @@ protected:
     }
 };
 
-TEST_F(test_ts_xlsx, completeConversione)
+TEST_F(test_ts_xlsx, completeConversion)
 {
-    n_doc = "../../qt-ts-csv/tests/r1.xlsx";
-    Ts2Xlsx().convert("../../qt-ts-csv/tests/t4.ts", n_doc);
+    n_doc = "../../qt-ts-csv/tests/files/ts_xlsx/out.xlsx";
+    Ts2Xlsx().convert("../../qt-ts-csv/tests/files/ts_xlsx/in.ts", n_doc);
 }

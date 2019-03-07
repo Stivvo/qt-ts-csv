@@ -13,7 +13,9 @@ SOURCES += \
     $$PWD/Writer.cpp \
     $$PWD/Xlsx2Ts.cpp \
     $$PWD/XlsxBuilder.cpp \
-    $$PWD/XlsxParser.cpp
+    $$PWD/XlsxParser.cpp \
+    $$PWD/Xlsx2csv.cpp \
+    $$PWD/Csv2Xlsx.cpp
 
 HEADERS += \
     $$PWD/rapidxml-1.13/rapidxml.hpp \
@@ -36,4 +38,6 @@ HEADERS += \
     $$PWD/Writer.hpp \
     $$PWD/Xlsx2Ts.hpp \
     $$PWD/XlsxBuilder.hpp \
-    $$PWD/XlsxParser.hpp
+    $$PWD/XlsxParser.hpp \
+    $$PWD/Xlsx2csv.hpp \
+    $$PWD/Csv2Xlsx.hpp

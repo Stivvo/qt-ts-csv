@@ -59,6 +59,8 @@
 "ConfigAPGC"|"Termina prova di rigidità dielettrica"|"End electric strength test"|"../../QML/OggettiService/ConfigAPGC.qml - 399"|""|""|""
 "ConfigAPGC"|"Togliere e reinserire USB"|"Remove and re-insert USB"|"../../QML/OggettiService/ConfigAPGC.qml - 410"|"../../QML/OggettiService/ConfigAPGC.qml - 417"|""|""
 "ConfigAPGC"|"Chiavetta USB trovata"|"USB key finded"|"../../QML/OggettiService/ConfigAPGC.qml - 419"|""|""|""
+"SteamIntensitySwitch"|"Intensità del vapore"|""|"../../QML/NewGraphic_AutoCook/SteamIntensitySwitch.qml - 17"|""|""|""
+"TaskDelegateItem"|"%1:%2"|""|"../../QML/NewGraphic_Scheduler/TaskDelegateItem.qml - 51"|""|""|""
 "TaskDelegateItem"|"LUN"|"MON"|"../../QML/NewGraphic_Scheduler/TaskDelegateItem.qml - 126"|""|""|""
 "TaskDelegateItem"|"MAR"|"TUE"|"../../QML/NewGraphic_Scheduler/TaskDelegateItem.qml - 126"|""|""|""
 "TaskDelegateItem"|"MER"|"WED"|"../../QML/NewGraphic_Scheduler/TaskDelegateItem.qml - 126"|""|""|""
@@ -72,6 +74,7 @@
 avvio"|"Start
 time"|"../../QML/NewGraphic_Scheduler/TaskDetailsPage.qml - 153"|""|""|""
 "TaskDetailsPage"|"Abilitare?"|"Enable?"|"../../QML/NewGraphic_Scheduler/TaskDetailsPage.qml - 185"|""|""|""
+"TaskDetailsPage"|"%1:%2"|""|"../../QML/NewGraphic_Scheduler/TaskDetailsPage.qml - 200"|""|""|""
 "TaskDetailsPage"|"LUN"|"MON"|"../../QML/NewGraphic_Scheduler/TaskDetailsPage.qml - 217"|""|""|""
 "TaskDetailsPage"|"MAR"|"TUE"|"../../QML/NewGraphic_Scheduler/TaskDetailsPage.qml - 217"|""|""|""
 "TaskDetailsPage"|"MER"|"WED"|"../../QML/NewGraphic_Scheduler/TaskDetailsPage.qml - 217"|""|""|""
@@ -86,6 +89,7 @@ time"|"../../QML/NewGraphic_Scheduler/TaskDetailsPage.qml - 153"|""|""|""
 "TaskReminderPopup"|"Ora di
 avvio"|"Start
 time"|"../../QML/NewGraphic_Scheduler/TaskReminderPopup.qml - 172"|""|""|""
+"TaskReminderPopup"|"%1:%2"|""|"../../QML/NewGraphic_Scheduler/TaskReminderPopup.qml - 187"|""|""|""
 "TaskReminderPopup"|"Note:"|"Note:"|"../../QML/NewGraphic_Scheduler/TaskReminderPopup.qml - 222"|""|""|""
 "TaskReminderPopup"|"Descrizione dell'attività."|"Activity description."|"../../QML/NewGraphic_Scheduler/TaskReminderPopup.qml - 239"|""|""|""
 "TaskReminderPopup"|"OK"|"OK"|"../../QML/NewGraphic_Scheduler/TaskReminderPopup.qml - 270"|""|""|""

@@ -1,12 +1,12 @@
 #pragma once
 
-#include <Csv2Ts.hpp>
+#include <Xlsx2csv.hpp>
 #include <Reader.hpp>
 
 #include <gtest/gtest.h>
 #include <gmock/gmock-matchers.h>
 
-class test_csv_ts : public testing::Test
+class test_xls_csv : public testing::Test
 {
 public:
     const char *n_doc;
@@ -23,10 +23,13 @@ protected:
     }
 };
 
-TEST_F(test_csv_ts, completeConversion)
+TEST_F(test_xls_csv, completeConversion)
 {
-    n_doc = "../../qt-ts-csv/tests/files/csv_ts/out.ts";
-    const auto file_compare = "../../qt-ts-csv/tests/files/csv_ts/exp.ts";
-    Csv2Ts().convert("../../qt-ts-csv/tests/files/csv_ts/in.csv", n_doc);
+    n_doc = "../../qt-ts-csv/tests/files/csv_xlsx/out.csv";
+    const auto file_compare = "../../qt-ts-csv/tests/files/csv_xlsx/exp.csv";
+
+    Xlsx2Csv().convert("../../qt-ts-csv/tests/files/csv_xlsx/exp.xlsx", n_doc);
+
     EXPECT_EQ(Reader().read(n_doc), Reader().read(file_compare));
 }
+

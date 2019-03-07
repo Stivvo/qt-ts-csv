@@ -2,8 +2,12 @@
 
 #include "Csv2Ts.hpp"
 #include "Ts2Csv.hpp"
+
 #include "Ts2Xlsx.hpp"
 #include "Xlsx2Ts.hpp"
+
+#include "Xlsx2csv.hpp"
+#include "Csv2Xlsx.hpp"
 
 QString Converter::convert() const
 {
@@ -32,14 +36,18 @@ QString Converter::convert() const
         } else {
             return "Invalid conversion";
         }
-    } else if (input.find(".csv") != std::string::npos){
+    } else if (input.find(".csv") != std::string::npos) {
         if (output.find(".ts") != std::string::npos) {
             Csv2Ts().convert(std::move(input), std::move(output));
+        } else if (output.find(".xlsx") != std::string::npos) {
+            Csv2Xlsx().convert(std::move(input), std::move(output));
         } else {
             return "Invalid conversion";
         }
-    } else {
-        if (output.find(".ts") != std::string::npos) {
+    } else if (input.find(".xlsx") != std::string::npos) {
+        if (output.find(".csv") != std::string::npos) {
+            Xlsx2Csv().convert(std::move(input), std::move(output));
+        } else if (output.find(".ts") != std::string::npos) {
             Xlsx2Ts().convert(std::move(input), std::move(output));
         } else {
             return "Invalid conversion";

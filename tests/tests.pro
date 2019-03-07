@@ -14,7 +14,9 @@ HEADERS += \
     $$PWD/tst_ts_csv.hpp \
     $$PWD/tst_csv_ts.hpp \
     $$PWD/tst_ts_xlsx.hpp \
-    $$PWD/tst_xlsx_ts.hpp
+    $$PWD/tst_xlsx_ts.hpp \
+    tst_xls_csv.hpp \
+    tst_csv_xls.hpp
 
 SOURCES += \
     main.cpp \

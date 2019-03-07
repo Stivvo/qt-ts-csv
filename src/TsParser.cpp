@@ -34,21 +34,20 @@ TsPOD TsParser::parse(std::string &&content)
                         }
                         t.locations.emplace_back(std::move(loc));
                     } else {
-                        if (att->name() != std::string("")) {
-                            if (att->name() == std::string("source")) {
-                                if (check_attribute_type(att->first_attribute("type"))) {
-                                    t.source = "";
-                                } else {
-                                    t.source = att->value();
-                                }
+                        if (att->name() == std::string("source")) {
+                            if (check_attribute_type(att->first_attribute("type"))) {
+                                t.source = "";
                             } else {
-                                if (check_attribute_type(att->first_attribute("type"))) {
-                                    t.tr = "";
-                                } else {
-                                    t.tr = att->value();
-                                }
+                                t.source = att->value();
+                            }
+                        } else if (att->name() == std::string("translation")) {
+                            if (check_attribute_type(att->first_attribute("type"))) {
+                                t.tr = "todelete";
+                            } else {
+                                t.tr = att->value();
                             }
                         }
+
                     }
                     att = att->next_sibling();
                 }
@@ -84,7 +83,7 @@ void TsParser::delete_empty_translations(TsPOD *ts) const
     for (auto &c : *ts) {
         size_t i = 0;
         while (i < c.translations.size()) {
-            if (c.translations[i].tr.empty()) {
+            if (c.translations[i].tr == std::string("todelete")) {
                 c.translations.erase(c.translations.begin() +
                                      static_cast<int32_t>(i));
                 continue;
@@ -105,7 +104,9 @@ uint16_t TsParser::find_max_locations(const TsPOD &ts)
     return ret;
 }
 
-bool TsParser::check_attribute_type(rapidxml::xml_attribute<char> *att) {
+bool TsParser::check_attribute_type(rapidxml::xml_attribute<char> *att)
+{
+
     return att != nullptr &&
         (att->value() == std::string("vanished") ||
          att->value() == std::string("obsolete"));

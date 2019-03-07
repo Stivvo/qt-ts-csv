@@ -17,6 +17,7 @@ ApplicationWindow {
     title: qsTr("Converter ") + version
 
     Rectangle {
+
         id: r_Source
         x: 0
         y: 0
@@ -44,11 +45,31 @@ ApplicationWindow {
         FileDialog {
             id: f_Source
             title: "Source file"
-            nameFilters: ["Excel files (*.xlsx)", "Csv files (*.csv)", "Linguist files (*.ts)"]
+            nameFilters: ["Linguist files (*.ts)", "Excel files (*.xlsx)", "Csv files (*.csv)"]
             folder: StandardPaths.standardLocations(StandardPaths.DesktopLocation)[0]
             onFileChanged: {
                 t_Conv.text = ""
                 t_Source.text = conv.setSource(f_Source.file)
+
+                if(t_Source.text.lastIndexOf(".xls") > 0)
+                {
+                    cb_Dest.model = [".ts", ".csv"]
+                    f_Dest.nameFilters = ["Linguist files (*.ts)",
+                                          "Csv files (*.csv)"]
+                }
+                else if (t_Source.text.lastIndexOf(".csv") > 0)
+                {
+                    cb_Dest.model = [".ts", ".xlsx"]
+                    f_Dest.nameFilters = ["Linguist files (*.ts)",
+                                          "Excel files (*.xlsx)"]
+                }
+                else if (t_Source.text.lastIndexOf(".ts") > 0)
+                {
+                    cb_Dest.model = [".xlsx",
+                                     ".csv"]
+                    f_Dest.nameFilters = ["Excel files (*.xlsx)",
+                                          "Csv files (*.csv)"]
+                }
             }
         }
     }
@@ -80,7 +101,7 @@ ApplicationWindow {
         FileDialog {
             id: f_Dest
             title: "Destination file"
-            nameFilters: ["Excel files (*.xlsx)", "Csv files (*.csv)", "Linguist files (*.ts)"]
+            nameFilters: []
             folder: StandardPaths.standardLocations(StandardPaths.DesktopLocation)[0]
             onAccepted: {
                 t_Conv.text = ""
@@ -120,7 +141,7 @@ ApplicationWindow {
             Layout.fillWidth: true
             anchors.verticalCenter: r_Dest.verticalCenter
             anchors.left: b_d_Dest.right
-            model: [".ts", ".csv", ".xlsx"];
+            model: []
             onCurrentTextChanged: {
                 t_Dest.text = conv.setDest(d_Dest.folder + qsTr("/output") +
                                            cb_Dest.currentText)
