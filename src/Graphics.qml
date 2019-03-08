@@ -5,172 +5,162 @@ import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.3
 
 ApplicationWindow {
-    height: 150
-    width: 600
-
-    maximumHeight: height
-
-    minimumHeight: height
-    minimumWidth: 500
-
     visible: true
     title: qsTr("Converter ") + version
 
-    Rectangle {
+//    property string filter:
 
-        id: r_Source
-        x: 0
-        y: 0
-        width: 500
-        height: 50
+    height: 400
+    width: 400
 
-        Text {
-            id: t_Source
-            height: 25
-            Layout.fillWidth: true
-            anchors.left: b_Source.right
-            anchors.verticalCenter: r_Source.verticalCenter
+    minimumHeight: 400
+    minimumWidth: 350
+
+    FileDialog {
+
+        id: fileChooseInput
+        title: "Source file"
+        nameFilters: []
+        folder:
+            StandardPaths.standardLocations(StandardPaths.DesktopLocation)[0]
+        onAccepted: {
+            console.log(fileChooseInput.file)
+            showInputText.text = conv.setSource("/" + fileChooseInput.file)
+            inputFormat.visible = true;
         }
 
-        Button {
-            id: b_Source
-            height: 25
-            Layout.fillWidth: true
-            anchors.left: r_Source.left
-            anchors.verticalCenter: r_Source.verticalCenter
-            text: "Source file"
-            onClicked: f_Source.open()
-        }
+    }
 
-        FileDialog {
-            id: f_Source
-            title: "Source file"
-            nameFilters: ["Linguist files (*.ts)", "Excel files (*.xlsx)", "Csv files (*.csv)"]
-            folder: StandardPaths.standardLocations(StandardPaths.DesktopLocation)[0]
-            onFileChanged: {
-                t_Conv.text = ""
-                t_Source.text = conv.setSource(f_Source.file)
+    FolderDialog {
+        id: folderChooseOutput
+        title: "Destination folder"
+        folder: StandardPaths.standardLocations(StandardPaths.DesktopLocation)[0]
+        onAccepted: {
+            console.log(folderChooseOutput.folder + qsTr("/output") +
+                        cb_Dest.currentText)
 
-                if(t_Source.text.lastIndexOf(".xls") > 0)
-                {
-                    cb_Dest.model = [".ts", ".csv"]
-                    f_Dest.nameFilters = ["Linguist files (*.ts)",
-                                          "Csv files (*.csv)"]
-                }
-                else if (t_Source.text.lastIndexOf(".csv") > 0)
-                {
-                    cb_Dest.model = [".ts", ".xlsx"]
-                    f_Dest.nameFilters = ["Linguist files (*.ts)",
-                                          "Excel files (*.xlsx)"]
-                }
-                else if (t_Source.text.lastIndexOf(".ts") > 0)
-                {
-                    cb_Dest.model = [".xlsx",
-                                     ".csv"]
-                    f_Dest.nameFilters = ["Excel files (*.xlsx)",
-                                          "Csv files (*.csv)"]
-                }
-            }
+            showOutputText.text = "destination: " + conv.setDest("/" + folderChooseOutput.folder + qsTr("/output") +
+                                       cb_Dest.currentText)
+            cb_Dest.visible = true
         }
     }
 
-    Rectangle {
-        id: r_Dest
-        anchors.top: r_Source.bottom
-        width: 500
-        height: 50
+    ColumnLayout {
+        anchors.fill: parent
 
-        Text {
-            id: t_Dest
-            height: 25
-            Layout.fillWidth: true
-            anchors.left: cb_Dest.right
-            anchors.verticalCenter: r_Dest.verticalCenter
-        }
+        ColumnLayout {
+            Layout.margins: 30
 
-        Button {
-            id: b_f_Dest
-            height: 25
-            Layout.fillWidth: true
-            anchors.verticalCenter: r_Dest.verticalCenter
-            anchors.left: r_Dest.left
-            text: "Destination file"
-            onClicked: f_Dest.open()
-        }
+            RowLayout { //selezione del file di input
 
-        FileDialog {
-            id: f_Dest
-            title: "Destination file"
-            nameFilters: []
-            folder: StandardPaths.standardLocations(StandardPaths.DesktopLocation)[0]
-            onAccepted: {
-                t_Conv.text = ""
-                t_Dest.text = conv.setDest(f_Dest.file)
-                cb_Dest.visible = false
-                t_Dest.anchors.left = b_d_Dest.right
+                Button {
+                    Layout.fillWidth: true
+                    text: "Source file"
+                    onClicked: fileChooseInput.open()
+                    Layout.rightMargin: 15
+                }
+
+                ComboBox {
+                    id: inputFormat
+                    visible: true
+                    Layout.fillWidth: true
+                    model: [".ts", ".xlsx", ".csv"]
+                    onCurrentIndexChanged: {
+                        showInputText.text = "source: "
+                        fileChooseInput.file = "";
+                        switch(currentIndex)
+                        {
+                        case 0:
+                            fileChooseInput.nameFilters = ["Linguist files (*.ts)"]
+                            cb_Dest.model = [".csv", ".xlsx"]
+                            break;
+                        case 1:
+                            fileChooseInput.nameFilters = ["Excel files (*.xlsx)"]
+                            cb_Dest.model = [".csv", ".ts"]
+                            break;
+                        case 2:
+                            fileChooseInput.nameFilters = ["Csv files (*.csv)"]
+                            cb_Dest.model = [".ts ", ".xlsx"]
+                            break;
+                        }
+
+                    }
+                }
+            } //end row Layout
+
+
+            RowLayout { //visualizza il file selezionato in input
+                id: showInput
+                Text {
+                    id: showInputText
+                    Layout.fillWidth: true
+                    text: "source: "
+                    Layout.topMargin: 15
+                }
             }
         }
 
-        Button {
-            id: b_d_Dest
-            height: 25
-            anchors.verticalCenter: r_Dest.verticalCenter
-            anchors.left: b_f_Dest.right
-            text: "Destination folder"
-            onClicked:d_Dest.open()
-            Layout.fillWidth: true
-        }
+        ColumnLayout {
+            Layout.margins: 30
+            RowLayout { //selezione file di output
+                id: output
 
-        FolderDialog {
-            id: d_Dest
-            title: "Destination folder"
-            folder: StandardPaths.standardLocations(StandardPaths.DesktopLocation)[0]
-            onAccepted: {
-                t_Conv.text = ""
-                t_Dest.text = conv.setDest(d_Dest.folder + qsTr("/output") +
-                                           cb_Dest.currentText)
-                cb_Dest.visible = true
-                t_Dest.anchors.left = cb_Dest.right
+                Button {
+                    Layout.fillWidth: true
+                    text: "destination folder"
+                    onClicked: folderChooseOutput.open()
+                    Layout.rightMargin: 15
+                }
+
+                ComboBox {
+                    id: cb_Dest
+                    visible: true
+                    Layout.fillWidth: true
+                    model: []
+                    onCurrentTextChanged: {
+                        console.log(currentIndex)
+                        console.log(currentText)
+                        showOutputText.text = "destination: " + conv.setDest("/" + folderChooseOutput.folder + qsTr("/output") +
+                                                       cb_Dest.currentText)
+                    }
+                }
+            } // end file output
+
+            RowLayout {  //visualizza file di output
+                id: showOutput
+
+                Text {
+                    id: showOutputText
+                    Layout.fillWidth: true
+                    Layout.topMargin: 15
+                    text: "destination: " + folderChooseOutput.folder
+                }
+
             }
         }
 
-        ComboBox {
-            id: cb_Dest
-            visible: true
-            height: 25
-            Layout.fillWidth: true
-            anchors.verticalCenter: r_Dest.verticalCenter
-            anchors.left: b_d_Dest.right
-            model: []
-            onCurrentTextChanged: {
-                t_Dest.text = conv.setDest(d_Dest.folder + qsTr("/output") +
-                                           cb_Dest.currentText)
+        ColumnLayout {
+            Layout.margins: 30
+            RowLayout { //bottone
+                id: conversion
+
+                Button {
+                    id: conversionBtnz
+                    Layout.fillWidth: true
+                    text: "Convert"
+                    onClicked : {
+                        conversionText.text = conv.convert()
+                    }
+                }
+            }
+
+            RowLayout {
+                Text {
+                    Layout.topMargin: 20
+                    id: conversionText
+                    Layout.fillWidth: true
+                }
             }
         }
-    }
-
-    Rectangle {
-        id: r_Conv
-        anchors.top: r_Dest.bottom
-        width: 500
-        height: 50
-
-        Text {
-            id: t_Conv
-            height: 25
-            Layout.fillWidth: true
-            anchors.left: b_Conv.right
-            anchors.verticalCenter: r_Conv.verticalCenter
-        }
-
-        Button {
-            id: b_Conv
-            height: 25
-            Layout.fillWidth: true
-            anchors.verticalCenter: r_Conv.verticalCenter
-            anchors.left: r_Conv.left
-            text: "Convert"
-            onClicked: t_Conv.text = conv.convert()
-        }
-    }
-}
+    } //end application layout
+} //end ApplicationWindow
