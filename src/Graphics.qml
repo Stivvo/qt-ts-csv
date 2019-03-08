@@ -23,9 +23,8 @@ ApplicationWindow {
         nameFilters: []
         folder:
             StandardPaths.standardLocations(StandardPaths.DesktopLocation)[0]
-        onAccepted: {
-            console.log(fileChooseInput.file)
-            showInputText.text = conv.setSource("/" + fileChooseInput.file)
+        onFileChanged: {
+            showInputText.text = conv.setSource(fileChooseInput.file)
             inputFormat.visible = true;
         }
 
@@ -36,10 +35,8 @@ ApplicationWindow {
         title: "Destination folder"
         folder: StandardPaths.standardLocations(StandardPaths.DesktopLocation)[0]
         onAccepted: {
-            console.log(folderChooseOutput.folder + qsTr("/output") +
-                        cb_Dest.currentText)
 
-            showOutputText.text = "destination: " + conv.setDest("/" + folderChooseOutput.folder + qsTr("/output") +
+            showOutputText.text = "destination: " + conv.setDest(folderChooseOutput.folder + qsTr("/output") +
                                        cb_Dest.currentText)
             cb_Dest.visible = true
         }
@@ -120,7 +117,7 @@ ApplicationWindow {
                     onCurrentTextChanged: {
                         console.log(currentIndex)
                         console.log(currentText)
-                        showOutputText.text = "destination: " + conv.setDest("/" + folderChooseOutput.folder + qsTr("/output") +
+                        showOutputText.text = "destination: " + conv.setDest(folderChooseOutput.folder + qsTr("/output") +
                                                        cb_Dest.currentText)
                     }
                 }
