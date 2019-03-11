@@ -2,8 +2,8 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "qt-ts-csv"
-#define MyAppVersion "2.0.0"
-#define MyAppPublisher "My Company, Inc."
+#define MyAppVersion "2.1.0"
+#define MyAppPublisher "micro-systems"
 #define MyAppURL "http://www.example.com/"
 #define MyAppExeName "src.exe"
 
