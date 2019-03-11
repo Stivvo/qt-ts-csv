@@ -1059,10 +1059,6 @@ bool Styles::readCellXfs(QXmlStreamReader &reader)
                 Format format;
                 QXmlStreamAttributes xfAttrs = reader.attributes();
 
-                //        qDebug()<<reader.name()<<reader.tokenString()<<" .........";
-                //        for (int i=0; i<xfAttrs.size(); ++i)
-                //            qDebug()<<"... "<<i<<" "<<xfAttrs[i].name()<<xfAttrs[i].value();
-
                 if (xfAttrs.hasAttribute(QLatin1String("numFmtId"))) {
                     int numFmtIndex = xfAttrs.value(QLatin1String("numFmtId")).toString().toInt();
                     bool apply = parseXsdBoolean(xfAttrs.value(QLatin1String("applyNumberFormat")).toString());

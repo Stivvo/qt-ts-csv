@@ -9,6 +9,12 @@
 #include "Xlsx2csv.hpp"
 #include "Csv2Xlsx.hpp"
 
+#include <fstream>
+#include <sstream>
+#include <qdebug.h>
+#include <iostream>
+#include <QFile>
+
 QString Converter::convert() const
 {
     std::string input = source;
@@ -59,15 +65,31 @@ QString Converter::convert() const
 QString Converter::setSource(const QString &source)
 {
     std::string sep = "///";
-    std::string input = source.toStdString();
+    std::string input;
+
+    input = source.toStdString();
+
     this->source = input.substr(input.find(sep) + sep.length());
+
+    #ifdef __linux__
+        this->source = "/" + this->source;
+    #endif
+
     return QString::fromStdString(this->source);
 }
 
 QString Converter::setDest(const QString &dest)
 {
     std::string sep = "///";
-    std::string input = dest.toStdString();
+    std::string input;
+
+    input = dest.toStdString();
+
     this->dest = input.substr(input.find(sep) + sep.length());
+
+    #ifdef __linux__
+    this->dest = "/" + this->dest;
+    #endif
+
     return QString::fromStdString(this->dest);
 }
