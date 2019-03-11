@@ -8,8 +8,6 @@ ApplicationWindow {
     visible: true
     title: qsTr("Converter ") + version
 
-//    property string filter:
-
     height: 400
     width: 400
 
@@ -37,7 +35,7 @@ ApplicationWindow {
         onAccepted: {
 
             showOutputText.text = "destination: " + conv.setDest(folderChooseOutput.folder + qsTr("/output") +
-                                       cb_Dest.currentText)
+                                                                 cb_Dest.currentText)
             cb_Dest.visible = true
         }
     }
@@ -115,10 +113,8 @@ ApplicationWindow {
                     Layout.fillWidth: true
                     model: []
                     onCurrentTextChanged: {
-                        console.log(currentIndex)
-                        console.log(currentText)
                         showOutputText.text = "destination: " + conv.setDest(folderChooseOutput.folder + qsTr("/output") +
-                                                       cb_Dest.currentText)
+                                                                             cb_Dest.currentText)
                     }
                 }
             } // end file output
