@@ -3,7 +3,7 @@
 
 #define MyAppName "qt-ts-csv"
 #define MyAppVersion "2.1.0"
-#define MyAppPublisher "Micro-Systems"
+#define MyAppPublisher "micro-systems"
 #define MyAppURL "http://www.example.com/"
 #define MyAppExeName "src.exe"
 
