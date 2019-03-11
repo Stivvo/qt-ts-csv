@@ -24,7 +24,7 @@ ApplicationWindow {
         folder:
             StandardPaths.standardLocations(StandardPaths.DesktopLocation)[0]
         onFileChanged: {
-            showInputText.text = conv.setSource(fileChooseInput.file)
+            showInputText.text = "source: " + conv.setSource(fileChooseInput.file)
             inputFormat.visible = true;
         }
 

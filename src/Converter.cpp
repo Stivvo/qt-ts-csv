@@ -63,7 +63,7 @@ QString Converter::setSource(const QString &source)
     std::string input = source.toStdString();
     qDebug() << source;
     this->source = input.substr(input.find(sep) + sep.length());
-//    this->source = "/" + this->source;
+    this->source = "/" + this->source;
     qDebug() << QString::fromStdString(this->source);
     return QString::fromStdString(this->source);
 }
@@ -73,6 +73,6 @@ QString Converter::setDest(const QString &dest)
     std::string sep = "///";
     std::string input = dest.toStdString();
     this->dest = input.substr(input.find(sep) + sep.length());
-//    this->source = "/" + this->source;
+    this->dest = "/" + this->dest;
     return QString::fromStdString(this->dest);
 }
