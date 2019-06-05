@@ -1,23 +1,21 @@
 #include "Converter.hpp"
 
 #include "Csv2Ts.hpp"
+#include "Csv2Xlsx.hpp"
 #include "Ts2Csv.hpp"
-
 #include "Ts2Xlsx.hpp"
 #include "Xlsx2Ts.hpp"
-
 #include "Xlsx2csv.hpp"
-#include "Csv2Xlsx.hpp"
 
-#include <fstream>
-#include <sstream>
-#include <qdebug.h>
-#include <iostream>
 #include <QFile>
+#include <fstream>
+#include <iostream>
+#include <qdebug.h>
+#include <sstream>
 
 QString Converter::convert() const
 {
-    std::string input = source;
+    std::string input  = source;
     std::string output = dest;
 
     if (input.empty() || output.empty()) {
@@ -71,9 +69,9 @@ QString Converter::setSource(const QString &source)
 
     this->source = input.substr(input.find(sep) + sep.length());
 
-    #ifdef __linux__
-        this->source = "/" + this->source;
-    #endif
+#ifdef __linux__
+    this->source = "/" + this->source;
+#endif
 
     return QString::fromStdString(this->source);
 }
@@ -87,9 +85,9 @@ QString Converter::setDest(const QString &dest)
 
     this->dest = input.substr(input.find(sep) + sep.length());
 
-    #ifdef __linux__
+#ifdef __linux__
     this->dest = "/" + this->dest;
-    #endif
+#endif
 
     return QString::fromStdString(this->dest);
 }

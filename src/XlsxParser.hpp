@@ -6,6 +6,6 @@
 
 class XlsxParser
 {
-public:
+  public:
     TsPOD parse(std::string &&name) const;
 };

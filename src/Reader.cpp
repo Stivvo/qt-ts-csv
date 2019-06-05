@@ -1,10 +1,9 @@
 #include "Reader.hpp"
 
-#include <fstream>
-#include <sstream>
-#include <qdebug.h>
-#include <iostream>
 #include <QFile>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 std::string Reader::read(std::string &&filename) const
 {

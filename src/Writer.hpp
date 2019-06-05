@@ -4,6 +4,6 @@
 
 class Writer
 {
-public:
+  public:
     void write(std::ostringstream &&oss, std::string &&output) const;
 };

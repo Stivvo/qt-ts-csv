@@ -2,13 +2,12 @@
 
 #include "Csv2Xlsx.hpp"
 
-#include "Writer.hpp"
-#include "Reader.hpp"
-#include "XlsxParser.hpp"
 #include "CsvBuilder.hpp"
+#include "CsvParser.hpp"
+#include "Reader.hpp"
+#include "Writer.hpp"
 #include "XlsxBuilder.hpp"
-#include "CsvParser.hpp"
-#include "CsvParser.hpp"
+#include "XlsxParser.hpp"
 
 #include <sstream>
 

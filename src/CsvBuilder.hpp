@@ -6,9 +6,9 @@ class TsPOD;
 
 class CSVBuilder
 {
-public:
+  public:
     std::ostringstream build(const TsPOD &ts) const;
 
-private:
+  private:
     const std::string sep = "|";
 };
