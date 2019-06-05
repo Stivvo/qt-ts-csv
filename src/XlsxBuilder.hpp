@@ -2,12 +2,11 @@
 
 #include "TsPod.hpp"
 
-#include <xlsxdocument.h>
-
 #include <sstream>
+#include <xlsxdocument.h>
 
 class XlsxBuilder
 {
-public:
+  public:
     void build(const TsPOD &ts, std::string name) const;
 };

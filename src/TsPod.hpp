@@ -5,7 +5,7 @@
 
 class Location
 {
-public:
+  public:
     std::string path;
     unsigned line;
 
@@ -22,7 +22,7 @@ public:
 
 class Translation
 {
-public:
+  public:
     std::vector<Location> locations;
     std::string source;
     std::string tr;
@@ -51,7 +51,7 @@ public:
 
 class Context
 {
-public:
+  public:
     std::string name;
     std::vector<Translation> translations;
 
@@ -79,17 +79,15 @@ public:
 
 class TsPOD : public std::vector<Context>
 {
-public:
+  public:
     std::string language;
     std::string version;
     uint16_t max_locations;
 
     bool operator==(const TsPOD &other) const
     {
-        if (this->size() != other.size() ||
-            language != other.language   ||
-            version != other.version     ||
-            max_locations != other.max_locations) {
+        if (this->size() != other.size() || language != other.language ||
+            version != other.version || max_locations != other.max_locations) {
             return false;
         }
 
@@ -102,4 +100,3 @@ public:
         return true;
     }
 };
-

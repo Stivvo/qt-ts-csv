@@ -4,10 +4,10 @@
 
 class CsvParser
 {
-public:
+  public:
     TsPOD parse(std::string &&content) const;
 
-private:
+  private:
     std::vector<std::string> split(std::string content,
                                    const std::string &delimiter) const;
     void restore_return(TsPOD *data) const;

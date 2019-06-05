@@ -4,9 +4,9 @@
 
 class ReadableFileConverter : public IConverter
 {
-public:
+  public:
     void convert(std::string &&filename, std::string &&output) override;
 
-protected:
+  protected:
     virtual std::ostringstream process(std::string &&data) const = 0;
 };

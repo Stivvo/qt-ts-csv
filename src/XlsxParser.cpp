@@ -2,36 +2,35 @@
 
 #include <sstream>
 
-template <class Container>
-void split1(const std::string& str, Container& cont)
+template<class Container> void split1(const std::string &str, Container &cont)
 {
     std::istringstream iss(str);
     std::copy(std::istream_iterator<std::string>(iss),
-              std::istream_iterator<std::string>(),
-              std::back_inserter(cont));
+              std::istream_iterator<std::string>(), std::back_inserter(cont));
 }
 
-TsPOD XlsxParser::parse(std::string &&name) const {
+TsPOD XlsxParser::parse(std::string &&name) const
+{
     QXlsx::Document doc(QString::fromStdString(name));
     TsPOD ret;
 
-    int row = 1;
-    int col = 0;
+    int row          = 1;
+    int col          = 0;
     std::string cell = "";
     do {
         col++;
         cell = doc.read(row, col).toString().toStdString();
     } while (cell.compare("language") != 0);
 
-    int row_lenght = col;
-    int Context = 1;
-    int Source = 2;
-    int Translation = 3;
-    int Version = row_lenght - 1;
-    int Language = row_lenght;
+    int row_lenght                          = col;
+    int Context                             = 1;
+    int Source                              = 2;
+    int Translation                         = 3;
+    int Version                             = row_lenght - 1;
+    int Language                            = row_lenght;
     const unsigned short field_not_location = 5;
-    ret.max_locations = static_cast<unsigned short>(row_lenght)
-                                - field_not_location;
+    ret.max_locations =
+        static_cast<unsigned short>(row_lenght) - field_not_location;
     col = 1;
     ++row;
     while (!doc.read(row, col).toString().toStdString().empty()) {

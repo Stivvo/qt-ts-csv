@@ -4,6 +4,6 @@
 
 class TsBuilder
 {
-public:
+  public:
     std::ostringstream build(TsPOD &&pod) const;
 };

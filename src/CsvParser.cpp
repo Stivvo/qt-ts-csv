@@ -6,23 +6,21 @@
 
 enum Row { Context, Source, Translation, Path };
 
-template <class Container>
-void split1(const std::string& str, Container& cont)
+template<class Container> void split1(const std::string &str, Container &cont)
 {
     std::istringstream iss(str);
     std::copy(std::istream_iterator<std::string>(iss),
-              std::istream_iterator<std::string>(),
-              std::back_inserter(cont));
+              std::istream_iterator<std::string>(), std::back_inserter(cont));
 }
 
 TsPOD CsvParser::parse(std::string &&content) const
 {
-    auto tokens = split(content, "|");
+    auto tokens           = split(content, "|");
     const auto row_lenght = find_row_items(tokens);
     split_last_cell_from_first_of_next_line(&tokens, row_lenght);
-    tokens.erase(tokens.begin(), tokens.begin() +
-                                     static_cast<int64_t>(row_lenght));
-    const auto Version = row_lenght - 2;
+    tokens.erase(tokens.begin(),
+                 tokens.begin() + static_cast<int64_t>(row_lenght));
+    const auto Version  = row_lenght - 2;
     const auto Language = row_lenght - 1;
 
     TsPOD ret;
@@ -34,7 +32,7 @@ TsPOD CsvParser::parse(std::string &&content) const
         for (size_t j = 0; j < row_lenght; ++j) {
             auto token = tokens.at(j + i);
             auto pos_i = token.find_first_of('\"');
-            pos_i = pos_i > token.size() ? 0 : pos_i + 1;
+            pos_i      = pos_i > token.size() ? 0 : pos_i + 1;
             auto pos_f = token.find_last_of('\"') - pos_i;
             if (j == Context) {
                 c.name = token.substr(pos_i, pos_f);
@@ -44,10 +42,10 @@ TsPOD CsvParser::parse(std::string &&content) const
                 t.tr = token.substr(pos_i, pos_f);
             } else if (j == Language) {
                 ret.language = ret.language.empty() ? token.substr(pos_i, pos_f)
-                                                        : ret.language;
+                                                    : ret.language;
             } else if (j == Version) {
                 ret.version = ret.version.empty() ? token.substr(pos_i, pos_f)
-                                                        : ret.version;
+                                                  : ret.version;
             } else {
                 Location l;
                 std::vector<std::string> loc;
@@ -87,7 +85,7 @@ std::vector<std::string> CsvParser::split(std::string content,
     size_t pos = 0;
     std::string token;
     do {
-        pos = content.find(delimiter);
+        pos   = content.find(delimiter);
         token = content.substr(0, pos);
         lines.emplace_back(token);
         content.erase(0, pos + delimiter.length());
@@ -109,9 +107,8 @@ size_t CsvParser::find_row_items(const std::vector<std::string> &v) const
     return ++count;
 }
 
-void CsvParser::
-    split_last_cell_from_first_of_next_line(std::vector<std::string> *data,
-                                            size_t row_lenght) const
+void CsvParser::split_last_cell_from_first_of_next_line(
+    std::vector<std::string> *data, size_t row_lenght) const
 {
     for (size_t i = row_lenght - 1; i < data->size(); i += row_lenght - 1) {
         const auto index = i;

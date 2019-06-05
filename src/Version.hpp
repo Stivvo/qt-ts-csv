@@ -6,7 +6,7 @@ static const std::string version = "2.1.0";
 
 class Version
 {
-public:
+  public:
     explicit Version(std::string &&version);
 
     static Version current() noexcept;
@@ -18,8 +18,8 @@ public:
 
     std::string as_string() const noexcept;
 
-private:
-    const std::string actual {version};
+  private:
+    const std::string actual{ version };
 
     std::tuple<int, int, int> get_maj_min_rev(const std::string &v) const;
 };

@@ -6,13 +6,13 @@ class Converter : public QObject
 {
     Q_OBJECT
 
-public:
+  public:
     Q_INVOKABLE QString convert() const;
 
     Q_INVOKABLE QString setSource(const QString &source);
     Q_INVOKABLE QString setDest(const QString &dest);
 
-private:
+  private:
     std::string source = "";
-    std::string dest = "";
+    std::string dest   = "";
 };

@@ -4,6 +4,6 @@
 
 class Xlsx2Ts : public IConverter
 {
-public:
+  public:
     void convert(std::string &&filename, std::string &&output) override;
 };

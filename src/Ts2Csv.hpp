@@ -4,6 +4,6 @@
 
 class Ts2Csv : public ReadableFileConverter
 {
-protected:
+  protected:
     std::ostringstream process(std::string &&data) const override;
 };

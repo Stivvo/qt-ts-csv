@@ -4,6 +4,6 @@
 
 class Reader
 {
-public:
+  public:
     std::string read(std::string &&filename) const;
 };
