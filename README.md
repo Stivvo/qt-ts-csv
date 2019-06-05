@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/guerinoni/qt-ts-csv.svg?branch=master)](https://travis-ci.org/guerinoni/qt-ts-csv)
+
 # qt-ts-csv
 A tool to generate csv and xlsx file from qt ts file and vice versa
 
