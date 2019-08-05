@@ -1,82 +1,89 @@
 #pragma once
 
-#include <Ts2Csv.hpp>
+#include "Path.hpp"
+
 #include <Reader.hpp>
-
-#include <gtest/gtest.h>
+#include <Ts2Csv.hpp>
 #include <gmock/gmock-matchers.h>
+#include <gtest/gtest.h>
 
-class test_ts_csv : public testing::Test
+class tst_TsCsv : public testing::Test
 {
-public:
-    const char *n_doc;
+  public:
+    std::vector<std::string> docs;
 
-protected:
-    virtual void TearDown()
+  protected:
+    void TearDown() override
     {
-        remove(n_doc);
+        std::for_each(docs.begin(), docs.end(), [](const std::string &d) {
+            std::experimental::filesystem::remove(d);
+        });
     }
-
-    virtual void SetUp()
-    {
-        n_doc = nullptr;
-    }
-
 };
 
-TEST_F(test_ts_csv, conversion)
+TEST_F(tst_TsCsv, conversion)
 {
-    const auto output = "\"context\"|\"source\"|\"translation\"|\"location\"|\"version\"|\"language\"\n"
-                        "\"AddNewForm\"|\"Cottura Manuale\"|\"Manual Cooking\"|\"../../QML/OggettiEditDash/AddNewForm.qml - 21\"|\"2.1\"|\"en_GB\"\n";
+    const auto output = "\"context\"|\"source\"|\"translation\"|\"location\"|"
+                        "\"version\"|\"language\"\n"
+                        "\"AddNewForm\"|\"Cottura Manuale\"|\"Manual "
+                        "Cooking\"|\"../../QML/OggettiEditDash/AddNewForm.qml "
+                        "- 21\"|\"2.1\"|\"en_GB\"\n";
 
-    n_doc = "../../qt-ts-csv/tests/files/csv_ts/r1.csv";
-    Ts2Csv().convert("../../qt-ts-csv/tests/files/csv_ts/t1.ts", n_doc);
+    auto doc = Path().get_files_basename() + "csv_ts/r1.csv";
+    docs.emplace_back(doc);
+    Ts2Csv().convert(Path().get_files_basename() + "csv_ts/t1.ts", doc.c_str());
 
-    EXPECT_EQ(Reader().read(n_doc), output);
+    EXPECT_EQ(Reader().read(std::move(doc)), output);
 }
 
-TEST_F(test_ts_csv, multirow)
-{
-    const auto output = "\"context\"|\"source\"|\"translation\"|\"location\"|\"version\"|\"language\"\n"
-                        "\"Connettivita\"|\"Impostazioni\n    Wi-fi\"|\"WI-fi\n"
-                        "    settings\"|\"../../QML/OggettiSettings/Connettivita.qml - 66\"|\"2.1\"|\"en_GB\"\n";
+// TEST_F(test_ts_csv, multirow)
+//{
+//    const auto output =
+//    "\"context\"|\"source\"|\"translation\"|\"location\"|\"version\"|\"language\"\n"
+//                        "\"Connettivita\"|\"Impostazioni\n Wi-fi\"|\"WI-fi\n"
+//                        "
+//                        settings\"|\"../../QML/OggettiSettings/Connettivita.qml
+//                        - 66\"|\"2.1\"|\"en_GB\"\n";
 
-    n_doc = "../../qt-ts-csv/tests/files/csv_ts/r2.csv";
-    Ts2Csv().convert("../../qt-ts-csv/tests/files/csv_ts/t2.ts", n_doc);
+//    n_doc = "../../qt-ts-csv/tests/files/csv_ts/r2.csv";
+//    Ts2Csv().convert("../../qt-ts-csv/tests/files/csv_ts/t2.ts", n_doc);
 
-    EXPECT_EQ(Reader().read(n_doc), output);
-}
+//    EXPECT_EQ(Reader().read(n_doc), output);
+//}
 
-TEST_F(test_ts_csv, typeVanishedAndObsolete)
-{
-    const auto output = "\"context\"|\"source\"|\"translation\"|\"location\"|\"version\"|\"language\"\n";
+// TEST_F(test_ts_csv, typeVanishedAndObsolete)
+//{
+//    const auto output =
+//    "\"context\"|\"source\"|\"translation\"|\"location\"|\"version\"|\"language\"\n";
 
-    n_doc = "../../qt-ts-csv/tests/files/csv_ts/r3.csv";
-    Ts2Csv().convert("../../qt-ts-csv/tests/files/csv_ts/t3.ts", n_doc);
+//    n_doc = "../../qt-ts-csv/tests/files/csv_ts/r3.csv";
+//    Ts2Csv().convert("../../qt-ts-csv/tests/files/csv_ts/t3.ts", n_doc);
 
-    EXPECT_EQ(Reader().read(n_doc), output);
-}
+//    EXPECT_EQ(Reader().read(n_doc), output);
+//}
 
-TEST_F(test_ts_csv, dontDeleteUnfinished)
-{
+// TEST_F(test_ts_csv, dontDeleteUnfinished)
+//{
 
-    const auto output = "\"context\"|\"source\"|\"translation\"|\"location\"|\"version\"|\"language\"\n"
-                        "\"ProgrammaSettmodel\"|\"h\"|\"h\"|\"../../../Ricette/programmasettmodel.cpp - 687\"|\"2.1\"|\"en_US\"\n"
-                        "\"ProgrammaSettmodel\"|\"g\"|\"\"|\"../../../Ricette/programmasettmodel.cpp - 655\"|\"\"|\"\"\n";
+//    const auto output =
+//    "\"context\"|\"source\"|\"translation\"|\"location\"|\"version\"|\"language\"\n"
+//                        "\"ProgrammaSettmodel\"|\"h\"|\"h\"|\"../../../Ricette/programmasettmodel.cpp
+//                        - 687\"|\"2.1\"|\"en_US\"\n"
+//                        "\"ProgrammaSettmodel\"|\"g\"|\"\"|\"../../../Ricette/programmasettmodel.cpp
+//                        - 655\"|\"\"|\"\"\n";
 
-    n_doc = "../../qt-ts-csv/tests/files/csv_ts/r5.csv";
-    Ts2Csv().convert("../../qt-ts-csv/tests/files/csv_ts/t5.ts", n_doc);
+//    n_doc = "../../qt-ts-csv/tests/files/csv_ts/r5.csv";
+//    Ts2Csv().convert("../../qt-ts-csv/tests/files/csv_ts/t5.ts", n_doc);
 
-    EXPECT_EQ(Reader().read(n_doc), output);
-}
+//    EXPECT_EQ(Reader().read(n_doc), output);
+//}
 
-TEST_F(test_ts_csv, completeConversion)
-{
-    n_doc = "../../qt-ts-csv/tests/files/r4.csv";
-    const auto file_compare = "../../qt-ts-csv/tests/files/csv_ts/tc4.csv";
+// TEST_F(test_ts_csv, completeConversion)
+//{
+//    n_doc = "../../qt-ts-csv/tests/files/r4.csv";
+//    const auto file_compare = "../../qt-ts-csv/tests/files/csv_ts/tc4.csv";
 
-    Ts2Csv().convert("../../qt-ts-csv/tests/files/csv_ts/t4.ts", n_doc);
+//    Ts2Csv().convert("../../qt-ts-csv/tests/files/csv_ts/t4.ts", n_doc);
 
-    EXPECT_EQ(Reader().read(n_doc), Reader().read(file_compare));
-}
-
+//    EXPECT_EQ(Reader().read(n_doc), Reader().read(file_compare));
+//}
