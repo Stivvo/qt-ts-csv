@@ -36,20 +36,21 @@ TEST_F(tst_TsCsv, conversion)
     EXPECT_EQ(Reader().read(std::move(doc)), output);
 }
 
-// TEST_F(test_ts_csv, multirow)
-//{
-//    const auto output =
-//    "\"context\"|\"source\"|\"translation\"|\"location\"|\"version\"|\"language\"\n"
-//                        "\"Connettivita\"|\"Impostazioni\n Wi-fi\"|\"WI-fi\n"
-//                        "
-//                        settings\"|\"../../QML/OggettiSettings/Connettivita.qml
-//                        - 66\"|\"2.1\"|\"en_GB\"\n";
+TEST_F(tst_TsCsv, multirow)
+{
+    const auto output =
+        "\"context\"|\"source\"|\"translation\"|\"location\"|\"version\"|"
+        "\"language\"\n"
+        "\"Connettivita\"|\"Impostazioni\r\n    Wi-fi\"|\"WI-fi\r\n"
+        "    settings\"|\"../../QML/OggettiSettings/Connettivita.qml - "
+        "66\"|\"2.1\"|\"en_GB\"\n";
 
-//    n_doc = "../../qt-ts-csv/tests/files/csv_ts/r2.csv";
-//    Ts2Csv().convert("../../qt-ts-csv/tests/files/csv_ts/t2.ts", n_doc);
+    auto doc = Path().get_files_basename() + "csv_ts/r2.csv";
+    docs.emplace_back(doc);
+    Ts2Csv().convert(Path().get_files_basename() + "csv_ts/t2.ts", doc.c_str());
 
-//    EXPECT_EQ(Reader().read(n_doc), output);
-//}
+    EXPECT_EQ(Reader().read(std::move(doc)), output);
+}
 
 // TEST_F(test_ts_csv, typeVanishedAndObsolete)
 //{
