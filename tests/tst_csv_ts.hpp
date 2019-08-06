@@ -1,32 +1,32 @@
 #pragma once
 
+#include "Path.hpp"
+
 #include <Csv2Ts.hpp>
 #include <Reader.hpp>
-
-#include <gtest/gtest.h>
 #include <gmock/gmock-matchers.h>
+#include <gtest/gtest.h>
 
-class test_csv_ts : public testing::Test
+class tst_CsvTs : public testing::Test
 {
-public:
-    const char *n_doc;
+  public:
+    std::vector<std::string> docs;
 
-protected:
+  protected:
     virtual void TearDown()
     {
-        remove(n_doc);
-    }
-
-    virtual void SetUp()
-    {
-        n_doc = nullptr;
+        std::for_each(docs.begin(), docs.end(), [](const std::string &d) {
+            std::experimental::filesystem::remove(d);
+        });
     }
 };
 
-TEST_F(test_csv_ts, completeConversion)
+TEST_F(tst_CsvTs, completeConversion)
 {
-    n_doc = "../../qt-ts-csv/tests/files/csv_ts/out.ts";
-    const auto file_compare = "../../qt-ts-csv/tests/files/csv_ts/exp.ts";
-    Csv2Ts().convert("../../qt-ts-csv/tests/files/csv_ts/in.csv", n_doc);
-    EXPECT_EQ(Reader().read(n_doc), Reader().read(file_compare));
+    auto doc          = Path().get_files_basename() + "csv_ts/out.ts";
+    auto file_compare = Path().get_files_basename() + "/csv_ts/exp.ts";
+    Csv2Ts().convert(Path().get_files_basename() + "csv_ts/in.csv",
+                     doc.c_str());
+    EXPECT_EQ(Reader().read(std::move(doc)),
+              Reader().read(std::move(file_compare)));
 }
