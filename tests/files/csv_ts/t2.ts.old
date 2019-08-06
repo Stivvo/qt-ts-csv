@@ -5,8 +5,10 @@
         <name>Connettivita</name>
         <message>
             <location filename="../../QML/OggettiSettings/Connettivita.qml" line="66"/>
-            <source>Impostazioni Wi-fi</source>
-            <translation>WI-fi settings</translation>
+            <source>Impostazioni
+    Wi-fi</source>
+            <translation>WI-fi
+    settings</translation>
         </message>
     </context>
 </TS>

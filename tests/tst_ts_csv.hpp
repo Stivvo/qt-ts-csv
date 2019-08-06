@@ -36,14 +36,9 @@ TEST_F(tst_TsCsv, conversion)
 
 TEST_F(tst_TsCsv, multirow)
 {
-    const auto exp =
-        "\"context\"|\"source\"|\"translation\"|\"location\"|\"version\"|"
-        "\"language\"\n"
-        "\"Connettivita\"|\"Impostazioni\r\n    Wi-fi\"|\"WI-fi\r\n"
-        "    settings\"|\"../../QML/OggettiSettings/Connettivita.qml - "
-        "66\"|\"2.1\"|\"en_GB\"\n";
-
-    EXPECT_TRUE(cmp_file("csv_ts/r2.csv", "csv_ts/t2.ts", exp));
+    auto file_compare = Path().get_files_basename() + "csv_ts/multirow.csv";
+    EXPECT_TRUE(cmp_file("csv_ts/r2.csv", "csv_ts/t2.ts",
+                         Reader().read(std::move(file_compare))));
 }
 
 TEST_F(tst_TsCsv, typeVanishedAndObsolete)
