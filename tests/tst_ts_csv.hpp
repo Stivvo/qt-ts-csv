@@ -2,7 +2,6 @@
 
 #include "Path.hpp"
 
-#include <Reader.hpp>
 #include <Ts2Csv.hpp>
 #include <gmock/gmock-matchers.h>
 #include <gtest/gtest.h>
@@ -80,22 +79,6 @@ bool tst_TsCsv::cmp_file(const std::string &in, const std::string &out,
     auto doc = Path().get_files_basename() + in;
     docs.emplace_back(doc);
     Ts2Csv().convert(Path().get_files_basename() + out, doc.c_str());
-    std::string docReaded = Reader().read(std::move(doc));
 
-    // debug
-    std::string diffs = "";
-    int j             = 0;
-    for (int i = 0; i < expected.size(); ++i) {
-        if (expected[i] == docReaded[j])
-            ++j;
-        else
-            diffs += expected[i];
-    }
-    std::cout << "docReaded size: " << docReaded.size() << std::endl;
-    std::cout << "expected size: " << expected.size() << std::endl;
-    std::cout << "j: " << j << ", diffs.size: " << diffs.size() << std::endl
-              << std::endl;
-    // end debug
-
-    return docReaded == expected;
+    return Path().debug(doc, expected);
 }
