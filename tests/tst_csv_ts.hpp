@@ -3,7 +3,6 @@
 #include "Path.hpp"
 
 #include <Csv2Ts.hpp>
-#include <Reader.hpp>
 #include <gmock/gmock-matchers.h>
 #include <gtest/gtest.h>
 
@@ -27,6 +26,6 @@ TEST_F(tst_CsvTs, completeConversion)
     auto file_compare = Path().get_files_basename() + "/csv_ts/exp.ts";
     Csv2Ts().convert(Path().get_files_basename() + "csv_ts/in.csv",
                      doc.c_str());
-    EXPECT_EQ(Reader().read(std::move(doc)),
-              Reader().read(std::move(file_compare)));
+    bool bul = Path().debug(doc, Reader().read(std::move(file_compare)));
+    EXPECT_TRUE(bul);
 }
