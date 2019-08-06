@@ -69,14 +69,9 @@ TEST_F(tst_TsCsv, dontDeleteUnfinished)
 
 TEST_F(tst_TsCsv, completeConversion)
 {
-    auto doc          = Path().get_files_basename() + "csv_ts/r4.csv";
     auto file_compare = Path().get_files_basename() + "csv_ts/tc4.csv";
-    docs.emplace_back(doc);
-
-    Ts2Csv().convert(Path().get_files_basename() + "csv_ts/t4.ts", doc.c_str());
-
-    EXPECT_EQ(Reader().read(std::move(doc)),
-              Reader().read(std::move(file_compare)));
+    EXPECT_TRUE(cmp_file("csv_ts/r4.csv", "csv_ts/t4.ts",
+                         Reader().read(std::move(file_compare))));
 }
 
 bool tst_TsCsv::cmp_file(const std::string &in, const std::string &out,
@@ -85,5 +80,22 @@ bool tst_TsCsv::cmp_file(const std::string &in, const std::string &out,
     auto doc = Path().get_files_basename() + in;
     docs.emplace_back(doc);
     Ts2Csv().convert(Path().get_files_basename() + out, doc.c_str());
-    return Reader().read(std::move(doc)) == expected;
+    std::string docReaded = Reader().read(std::move(doc));
+
+    // debug
+    std::string diffs = "";
+    int j             = 0;
+    for (int i = 0; i < expected.size(); ++i) {
+        if (expected[i] == docReaded[j])
+            ++j;
+        else
+            diffs += expected[i];
+    }
+    std::cout << "docReaded size: " << docReaded.size() << std::endl;
+    std::cout << "expected size: " << expected.size() << std::endl;
+    std::cout << "j: " << j << ", diffs.size: " << diffs.size() << std::endl
+              << std::endl;
+    // end debug
+
+    return docReaded == expected;
 }
