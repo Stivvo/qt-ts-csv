@@ -74,5 +74,5 @@ bool tst_TsCsv::cmp_file(const std::string &in, const std::string &out,
     docs.emplace_back(doc);
     Ts2Csv().convert(Path().get_files_basename() + out, doc.c_str());
 
-    return Debug::file_string_eq(doc, expected);
+    return Reader().read(std::move(doc)) == expected;
 }

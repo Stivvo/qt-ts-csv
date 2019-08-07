@@ -5,11 +5,9 @@
 #include <iostream>
 
 struct Debug {
-    static bool file_string_eq(std::string &doc, const std::string &expected)
+    static std::string findDiff(std::string &docReaded,
+                                const std::string &expected)
     {
-        std::string docReaded = Reader().read(std::move(doc));
-
-        // debug
         std::string diffs = "";
         int j             = 0;
         for (int i = 0; i < expected.size(); ++i) {
@@ -25,8 +23,7 @@ struct Debug {
         std::cout << "expected size: " << expected.size() << std::endl;
         std::cout << "j: " << j << ", diffs.size: " << diffs.size() << std::endl
                   << std::endl;
-        // end debug
 
-        return docReaded == expected;
+        return diffs;
     }
 };
