@@ -11,6 +11,7 @@ class tst_CsvTs : public testing::Test
 {
   public:
     std::vector<std::string> docs;
+    std::string f = "csv_ts/";
 
   protected:
     void TearDown() override
@@ -21,10 +22,9 @@ class tst_CsvTs : public testing::Test
 
 TEST_F(tst_CsvTs, completeConversion)
 {
-    auto doc          = Path().get_files_basename() + "csv_ts/out.ts";
-    auto file_compare = Path().get_files_basename() + "csv_ts/exp.ts";
-    Csv2Ts().convert(Path().get_files_basename() + "csv_ts/in.csv",
-                     doc.c_str());
+    auto doc          = Path().get_files_basename() + f + "out.ts";
+    auto file_compare = Path().get_files_basename() + f + "exp.ts";
+    Csv2Ts().convert(Path().get_files_basename() + f + "in.csv", doc.c_str());
     docs.emplace_back(doc);
 
     std::string docReaded = Reader().read(std::move(doc));
