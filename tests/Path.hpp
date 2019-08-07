@@ -20,7 +20,7 @@ struct Path {
     }
     static void teardown(std::vector<std::string> &docs)
     {
-        for (const std::string &t : docs)
+        for (std::string &t : docs)
             std::experimental::filesystem::remove(t);
     }
 };

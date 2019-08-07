@@ -15,9 +15,7 @@ class tst_CsvTs : public testing::Test
   protected:
     void TearDown() override
     {
-        std::for_each(docs.begin(), docs.end(), [](const std::string &d) {
-            std::experimental::filesystem::remove(d);
-        });
+        Path().teardown(docs);
     }
 };
 
