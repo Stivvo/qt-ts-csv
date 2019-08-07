@@ -41,9 +41,9 @@ TsPOD XlsxParser::parse(std::string &&name) const
             if (col == Context) {
                 c.name = cell;
             } else if (col == Source) {
-                t.source = cell;
+                t.source = rmR(cell);
             } else if (col == Translation) {
-                t.tr = cell;
+                t.tr = rmR(cell);
             } else if (col == Language) {
                 ret.language = ret.language.empty() ? cell : ret.language;
             } else if (col == Version) {
@@ -67,4 +67,16 @@ TsPOD XlsxParser::parse(std::string &&name) const
     }
 
     return ret;
+}
+
+std::string XlsxParser::rmR(const std::string &s) const
+{
+    std::string out;
+    for (int i = 0; i < s.size(); ++i) {
+        if (s[i] != '\r')
+            out += s[i];
+        else
+            out.size();
+    }
+    return out;
 }
