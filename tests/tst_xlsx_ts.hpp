@@ -1,40 +1,39 @@
 #pragma once
 
-#include "xlsxdocument.h"
+#include "Path.hpp"
 #include "Reader.hpp"
-#include "Xlsx2Ts.hpp"
 #include "Ts2Xlsx.hpp"
-#include "XlsxParser.hpp"
 #include "TsParser.hpp"
+#include "Xlsx2Ts.hpp"
+#include "XlsxParser.hpp"
+#include "xlsxdocument.h"
 
-#include <gtest/gtest.h>
 #include <gmock/gmock-matchers.h>
+#include <gtest/gtest.h>
+#include <iostream>
 
 class test_xlsx_ts : public testing::Test
 {
-public:
-    const char *n_doc;
+  public:
+    std::string doc;
 
-protected:
+  protected:
     virtual void TearDown()
     {
-        remove(n_doc);
+        std::experimental::filesystem::remove(doc);
     }
 
-    virtual void SetUp()
-    {
-        n_doc = nullptr;
-    }
+    virtual void SetUp() {}
 };
 
 TEST_F(test_xlsx_ts, completeConversion)
 {
-    const auto file_compare = "../../qt-ts-csv/tests/files/ts_xlsx/in.ts";
-    n_doc = "../../qt-ts-csv/tests/files/ts_xlsx/out.ts";
+    std::string file_compare = Path().get_files_basename() + "ts_xlsx/in.ts";
+    doc                      = Path().get_files_basename() + "ts_xlsx/out.ts";
 
-    Xlsx2Ts().convert("../../qt-ts-csv/tests/files/ts_xlsx/in.xlsx", n_doc);
+    Xlsx2Ts().convert(Path().get_files_basename() + "ts_xlsx/in.xlsx",
+                      doc.c_str());
 
-    EXPECT_EQ(TsParser().parse(Reader().read(std::move(n_doc))),
+    EXPECT_EQ(TsParser().parse(Reader().read(std::move(doc))),
               TsParser().parse(Reader().read(std::move(file_compare))));
 }
-

@@ -1,29 +1,28 @@
 #pragma once
 
-#include <Ts2Xlsx.hpp>
+#include "Path.hpp"
+#include "Ts2Xlsx.hpp"
 
-#include <gtest/gtest.h>
 #include <gmock/gmock-matchers.h>
+#include <gtest/gtest.h>
 
 class test_ts_xlsx : public testing::Test
 {
-public:
-    const char *n_doc;
+  public:
+    std::string doc;
 
-protected:
-    virtual void TearDown()
+  protected:
+    void TearDown() override
     {
-        remove(n_doc);
+        std::experimental::filesystem::remove(doc.c_str());
     }
-
-    virtual void SetUp()
-    {
-        n_doc = nullptr;
-    }
+    void SetUp() override {}
 };
 
 TEST_F(test_ts_xlsx, completeConversion)
 {
-    n_doc = "../../qt-ts-csv/tests/files/ts_xlsx/out.xlsx";
-    Ts2Xlsx().convert("../../qt-ts-csv/tests/files/ts_xlsx/in.ts", n_doc);
+    const auto file_compare = Path().get_files_basename() + "ts_xlsx/in.xlsx";
+    doc                     = Path().get_files_basename() + "ts_xlsx/out.xlsx";
+    Ts2Xlsx().convert(Path().get_files_basename() + "ts_xlsx/in.ts",
+                      doc.c_str());
 }

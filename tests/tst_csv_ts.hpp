@@ -27,10 +27,10 @@ TEST_F(tst_CsvTs, completeConversion)
     auto file_compare = Path().get_files_basename() + "csv_ts/exp.ts";
     Csv2Ts().convert(Path().get_files_basename() + "csv_ts/in.csv",
                      doc.c_str());
+    docs.emplace_back(doc);
 
     std::string docReaded = Reader().read(std::move(doc));
     std::string expected  = Reader().read(std::move(file_compare));
     bool bul              = docReaded == expected;
-    Debug::findDiff(docReaded, expected);
     EXPECT_TRUE(bul);
 }
