@@ -42,14 +42,14 @@ TsPOD TsParser::parse(std::string &&content)
                                     att->first_attribute("type"))) {
                                 t.source = "";
                             } else {
-                                t.source = att->value();
+                                t.source = rmR(att->value());
                             }
                         } else if (att->name() == std::string("translation")) {
                             if (check_attribute_type(
                                     att->first_attribute("type"))) {
                                 t.tr = "todelete";
                             } else {
-                                t.tr = att->value();
+                                t.tr = rmR(att->value());
                             }
                         }
                     }
@@ -113,4 +113,14 @@ bool TsParser::check_attribute_type(rapidxml::xml_attribute<char> *att)
 {
     return att != nullptr && (att->value() == std::string("vanished") ||
                               att->value() == std::string("obsolete"));
+}
+
+std::string TsParser::rmR(const std::string &s) const
+{
+    std::string out;
+    for (int i = 0; i < s.size(); ++i) {
+        if (s[i] != '\r')
+            out += s[i];
+    }
+    return out;
 }

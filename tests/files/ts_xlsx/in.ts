@@ -561,9 +561,9 @@
 		<name>TaskDetailsPage</name>
 		<message>
 			<location filename="../../QML/NewGraphic_Scheduler/TaskDetailsPage.qml" line="153"/>
-			<source>Ora di
+            <source>Ora di
 avvio</source>
-			<translation>Start
+            <translation>Start
 time</translation>
 		</message>
 	</context>

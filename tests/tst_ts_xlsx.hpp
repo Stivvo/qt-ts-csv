@@ -14,7 +14,7 @@ class test_ts_xlsx : public testing::Test
   protected:
     void TearDown() override
     {
-        std::experimental::filesystem::remove(doc.c_str());
+        std::experimental::filesystem::remove(doc);
     }
     void SetUp() override {}
 };

@@ -13,4 +13,5 @@ class TsParser
     void delete_empty_translations(TsPOD *ts) const;
     uint16_t find_max_locations(const TsPOD &ts);
     bool check_attribute_type(rapidxml::xml_attribute<char> *att);
+    std::string rmR(const std::string &s) const;
 };

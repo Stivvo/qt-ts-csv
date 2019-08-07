@@ -34,6 +34,8 @@ TEST_F(test_xlsx_ts, completeConversion)
     Xlsx2Ts().convert(Path().get_files_basename() + "ts_xlsx/in.xlsx",
                       doc.c_str());
 
-    EXPECT_EQ(TsParser().parse(Reader().read(std::move(doc))),
-              TsParser().parse(Reader().read(std::move(file_compare))));
+    auto docReaded = TsParser().parse(Reader().read(std::move(doc)));
+    auto expected  = TsParser().parse(Reader().read(std::move(file_compare)));
+
+    EXPECT_EQ(docReaded, expected);
 }
