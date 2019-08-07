@@ -3,6 +3,7 @@
 #include "Reader.hpp"
 
 #include <iostream>
+#include <vector>
 
 struct Debug {
     static std::string findDiff(std::string &docReaded,

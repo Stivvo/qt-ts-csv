@@ -18,4 +18,9 @@ struct Path {
         str.erase(it, str.size());
         return (str + "qt-ts-csv/tests/files/");
     }
+    static void teardown(std::vector<std::string> &docs)
+    {
+        for (const std::string &t : docs)
+            std::experimental::filesystem::remove(t);
+    }
 };
