@@ -11,6 +11,7 @@ class tst_TsCsv : public testing::Test
 {
   public:
     std::vector<std::string> docs;
+    std::string f = "csv_ts/";
 
     bool cmp_file(const std::string &in, const std::string &out,
                   const std::string &expected);
@@ -29,14 +30,14 @@ TEST_F(tst_TsCsv, conversion)
 "AddNewForm"|"Cottura Manuale"|"Manual Cooking"|"../../QML/OggettiEditDash/AddNewForm.qml - 21"|"2.1"|"en_GB"
 )";
 
-    EXPECT_TRUE(cmp_file("csv_ts/r1.csv", "csv_ts/t1.ts", exp));
+    EXPECT_TRUE(cmp_file("r1.csv", "t1.ts", exp));
 }
 
 TEST_F(tst_TsCsv, multirow)
 {
-    auto file_compare = Path().get_files_basename() + "csv_ts/multirow.csv";
-    EXPECT_TRUE(cmp_file("csv_ts/r2.csv", "csv_ts/t2.ts",
-                         Reader().read(std::move(file_compare))));
+    auto file_compare = Path().get_files_basename() + f + "multirow.csv";
+    EXPECT_TRUE(
+        cmp_file("r2.csv", "t2.ts", Reader().read(std::move(file_compare))));
 }
 
 TEST_F(tst_TsCsv, typeVanishedAndObsolete)
@@ -45,7 +46,7 @@ TEST_F(tst_TsCsv, typeVanishedAndObsolete)
         R"("context"|"source"|"translation"|"location"|"version"|"language"
 )";
 
-    EXPECT_TRUE(cmp_file("csv_ts/r3.csv", "csv_ts/t3.ts", exp));
+    EXPECT_TRUE(cmp_file("r3.csv", "t3.ts", exp));
 }
 
 TEST_F(tst_TsCsv, dontDeleteUnfinished)
@@ -55,22 +56,22 @@ TEST_F(tst_TsCsv, dontDeleteUnfinished)
 "ProgrammaSettmodel"|"h"|"h"|"../../../Ricette/programmasettmodel.cpp - 687"|"2.1"|"en_US"
 "ProgrammaSettmodel"|"g"|""|"../../../Ricette/programmasettmodel.cpp - 655"|""|""
 )";
-    EXPECT_TRUE(cmp_file("csv_ts/r5.csv", "csv_ts/t5.ts", exp));
+    EXPECT_TRUE(cmp_file("r5.csv", "t5.ts", exp));
 }
 
 TEST_F(tst_TsCsv, completeConversion)
 {
-    auto file_compare = Path().get_files_basename() + "csv_ts/tc4.csv";
-    EXPECT_TRUE(cmp_file("csv_ts/r4.csv", "csv_ts/t4.ts",
-                         Reader().read(std::move(file_compare))));
+    auto file_compare = Path().get_files_basename() + f + "tc4.csv";
+    EXPECT_TRUE(
+        cmp_file("r4.csv", "t4.ts", Reader().read(std::move(file_compare))));
 }
 
 bool tst_TsCsv::cmp_file(const std::string &in, const std::string &out,
                          const std::string &expected)
 {
-    auto doc = Path().get_files_basename() + in;
+    auto doc = Path().get_files_basename() + f + in;
     docs.emplace_back(doc);
-    Ts2Csv().convert(Path().get_files_basename() + out, doc.c_str());
+    Ts2Csv().convert(Path().get_files_basename() + f + out, doc.c_str());
 
     return Reader().read(std::move(doc)) == expected;
 }
