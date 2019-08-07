@@ -32,8 +32,8 @@ std::ostringstream CSVBuilder::build(const TsPOD &ts) const
     for (const auto &c : ts) {
         for (const auto &d : c.translations) {
             oss << "\"" << c.name << "\"" << sep;
-            oss << "\"" << d.source << "\"" << sep;
-            oss << "\"" << d.tr << "\"" << sep;
+            oss << "\"" << rmR(d.source) << "\"" << sep;
+            oss << "\"" << rmR(d.tr) << "\"" << sep;
             for (uint16_t j = 0; j < ts.max_locations; ++j) {
                 oss << "\"";
                 if (!d.locations.empty() && j <= d.locations.size() - 1) {
@@ -53,6 +53,15 @@ std::ostringstream CSVBuilder::build(const TsPOD &ts) const
             }
         }
     }
-
     return oss;
+}
+
+std::string CSVBuilder::rmR(const std::string &s) const
+{
+    std::string out;
+    for (int i = 0; i < s.size(); ++i) {
+        if (s[i] != '\r')
+            out += s[i];
+    }
+    return out;
 }

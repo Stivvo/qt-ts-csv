@@ -11,4 +11,5 @@ class CSVBuilder
 
   private:
     const std::string sep = "|";
+    std::string rmR(const std::string &s) const;
 };

@@ -25,11 +25,10 @@ class tst_TsCsv : public testing::Test
 
 TEST_F(tst_TsCsv, conversion)
 {
-    const auto exp = "\"context\"|\"source\"|\"translation\"|\"location\"|"
-                     "\"version\"|\"language\"\n"
-                     "\"AddNewForm\"|\"Cottura Manuale\"|\"Manual "
-                     "Cooking\"|\"../../QML/OggettiEditDash/AddNewForm.qml "
-                     "- 21\"|\"2.1\"|\"en_GB\"\n";
+    const auto exp =
+        R"("context"|"source"|"translation"|"location"|"version"|"language"
+"AddNewForm"|"Cottura Manuale"|"Manual Cooking"|"../../QML/OggettiEditDash/AddNewForm.qml - 21"|"2.1"|"en_GB"
+)";
 
     EXPECT_TRUE(cmp_file("csv_ts/r1.csv", "csv_ts/t1.ts", exp));
 }
@@ -43,21 +42,20 @@ TEST_F(tst_TsCsv, multirow)
 
 TEST_F(tst_TsCsv, typeVanishedAndObsolete)
 {
-    const auto exp = "\"context\"|\"source\"|\"translation\"|\"location\"|"
-                     "\"version\"|\"language\"\n";
+    const auto exp =
+        R"("context"|"source"|"translation"|"location"|"version"|"language"
+)";
 
     EXPECT_TRUE(cmp_file("csv_ts/r3.csv", "csv_ts/t3.ts", exp));
 }
 
 TEST_F(tst_TsCsv, dontDeleteUnfinished)
 {
-    const auto exp = "\"context\"|\"source\"|\"translation\"|\"location\"|"
-                     "\"version\"|\"language\"\n"
-                     "\"ProgrammaSettmodel\"|\"h\"|\"h\"|\"../../../Ricette/"
-                     "programmasettmodel.cpp - 687\"|\"2.1\"|\"en_US\"\n"
-                     "\"ProgrammaSettmodel\"|\"g\"|\"\"|\"../../../Ricette/"
-                     "programmasettmodel.cpp - 655\"|\"\"|\"\"\n";
-
+    const auto exp =
+        R"("context"|"source"|"translation"|"location"|"version"|"language"
+"ProgrammaSettmodel"|"h"|"h"|"../../../Ricette/programmasettmodel.cpp - 687"|"2.1"|"en_US"
+"ProgrammaSettmodel"|"g"|""|"../../../Ricette/programmasettmodel.cpp - 655"|""|""
+)";
     EXPECT_TRUE(cmp_file("csv_ts/r5.csv", "csv_ts/t5.ts", exp));
 }
 
