@@ -29,6 +29,13 @@ class tst_xlsx_ts : public testing::Test
     virtual void SetUp() {}
 };
 
+TEST_F(tst_xlsx_ts, conversion)
+{
+    EXPECT_TRUE(cmp_file("ts_xlsx/conversionIn.xlsx",
+                         "ts_xlsx/conversionOut.ts",
+                         "ts_xlsx/conversionIn.ts"));
+}
+
 TEST_F(tst_xlsx_ts, multirow)
 {
     EXPECT_TRUE(cmp_file("ts_xlsx/multirowIn.xlsx", "ts_xlsx/multirowOut.ts",
@@ -37,7 +44,8 @@ TEST_F(tst_xlsx_ts, multirow)
 
 TEST_F(tst_xlsx_ts, completeConversion)
 {
-    EXPECT_TRUE(cmp_file("ts_xlsx/in.xlsx", "ts_xlsx/out.ts", "ts_xlsx/in.ts"));
+    EXPECT_TRUE(cmp_file("ts_xlsx/completeIn.xlsx", "ts_xlsx/completeOut.ts",
+                         "ts_xlsx/completeIn.ts"));
 }
 
 bool tst_xlsx_ts::cmp_file(const std::string &in, const std::string &out,
