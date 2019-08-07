@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Debug.hpp"
 #include "Path.hpp"
 #include "Reader.hpp"
 #include "Ts2Xlsx.hpp"
@@ -12,30 +13,45 @@
 #include <gtest/gtest.h>
 #include <iostream>
 
-class test_xlsx_ts : public testing::Test
+class tst_xlsx_ts : public testing::Test
 {
   public:
-    std::string doc;
+    std::vector<std::string> docs;
+    bool cmp_file(const std::string &in, const std::string &out,
+                  const std::string &expected);
 
   protected:
-    virtual void TearDown()
+    void TearDown() override
     {
-        std::experimental::filesystem::remove(doc);
+        Path().teardown(docs);
     }
 
     virtual void SetUp() {}
 };
 
-TEST_F(test_xlsx_ts, completeConversion)
+TEST_F(tst_xlsx_ts, multirow)
 {
-    std::string file_compare = Path().get_files_basename() + "ts_xlsx/in.ts";
-    doc                      = Path().get_files_basename() + "ts_xlsx/out.ts";
+    EXPECT_TRUE(cmp_file("ts_xlsx/multirowIn.xlsx", "ts_xlsx/multirowOut.ts",
+                         "ts_xlsx/multirowIn.ts"));
+}
 
-    Xlsx2Ts().convert(Path().get_files_basename() + "ts_xlsx/in.xlsx",
-                      doc.c_str());
+TEST_F(tst_xlsx_ts, completeConversion)
+{
+    EXPECT_TRUE(cmp_file("ts_xlsx/in.xlsx", "ts_xlsx/out.ts", "ts_xlsx/in.ts"));
+}
+
+bool tst_xlsx_ts::cmp_file(const std::string &in, const std::string &out,
+                           const std::string &expected)
+{
+    std::string doc          = Path().get_files_basename() + out;
+    std::string file_compare = Path().get_files_basename() + expected;
+    docs.emplace_back(doc);
+
+    Xlsx2Ts().convert(Path().get_files_basename() + in, doc.c_str());
 
     auto docReaded = TsParser().parse(Reader().read(std::move(doc)));
-    auto expected  = TsParser().parse(Reader().read(std::move(file_compare)));
+    auto file_compareReaded =
+        TsParser().parse(Reader().read(std::move(file_compare)));
 
-    EXPECT_EQ(docReaded, expected);
+    return docReaded == file_compareReaded;
 }
