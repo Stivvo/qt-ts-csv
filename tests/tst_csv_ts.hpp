@@ -13,7 +13,7 @@ class tst_CsvTs : public testing::Test
     std::vector<std::string> docs;
 
   protected:
-    virtual void TearDown()
+    void TearDown() override
     {
         std::for_each(docs.begin(), docs.end(), [](const std::string &d) {
             std::experimental::filesystem::remove(d);
