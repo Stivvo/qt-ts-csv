@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Debug.hpp"
 #include "Path.hpp"
 
 #include <Csv2Ts.hpp>
@@ -23,9 +24,13 @@ class tst_CsvTs : public testing::Test
 TEST_F(tst_CsvTs, completeConversion)
 {
     auto doc          = Path().get_files_basename() + "csv_ts/out.ts";
-    auto file_compare = Path().get_files_basename() + "/csv_ts/exp.ts";
+    auto file_compare = Path().get_files_basename() + "csv_ts/exp.ts";
     Csv2Ts().convert(Path().get_files_basename() + "csv_ts/in.csv",
                      doc.c_str());
-    bool bul = Path().debug(doc, Reader().read(std::move(file_compare)));
+
+    std::string docReaded = Reader().read(std::move(doc));
+    std::string expected  = Reader().read(std::move(file_compare));
+    bool bul              = docReaded == expected;
+    Debug::findDiff(docReaded, expected);
     EXPECT_TRUE(bul);
 }
