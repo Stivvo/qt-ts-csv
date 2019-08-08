@@ -30,11 +30,11 @@ public:
             std::experimental::filesystem::remove(t);
     }
     static void initSep() {
-//        #ifdef _WIN32
-//        sp = "\\";
-//        #else
-//        sp = "//";
-//        #endif
+        #ifdef _WIN32
+        sp = "\\";
+        #else
+        sp = "//";
+        #endif
     }
     static std::string sep() {
         return sp;
