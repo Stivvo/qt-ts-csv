@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Csv2Xlsx.hpp"
 
 #include "CsvBuilder.hpp"
