@@ -1,43 +1,17 @@
-SOURCES += \
-    $$PWD/Converter.cpp \
-    $$PWD/Csv2Ts.cpp \
-    $$PWD/CsvBuilder.cpp \
-    $$PWD/CsvParser.cpp \
-    $$PWD/ReadableFileConverter.cpp \
-    $$PWD/Reader.cpp \
-    $$PWD/Ts2Csv.cpp \
-    $$PWD/Ts2Xlsx.cpp \
-    $$PWD/TsBuilder.cpp \
-    $$PWD/TsParser.cpp \
-    $$PWD/Version.cpp \
-    $$PWD/Writer.cpp \
-    $$PWD/Xlsx2Ts.cpp \
-    $$PWD/XlsxBuilder.cpp \
-    $$PWD/XlsxParser.cpp \
-    $$PWD/Xlsx2csv.cpp \
-    $$PWD/Csv2Xlsx.cpp
+INCLUDEPATH += \
+    $$PWD/read/ \
+    $$PWD/write/ \
+    $$PWD/build/ \
+    $$PWD/convert/ \
+    $$PWD/x2x/
 
-HEADERS += \
-    $$PWD/rapidxml-1.13/rapidxml.hpp \
-    $$PWD/rapidxml-1.13/rapidxml_iterators.hpp \
-    $$PWD/rapidxml-1.13/rapidxml_print.hpp \
-    $$PWD/rapidxml-1.13/rapidxml_utils.hpp \
-    $$PWD/Converter.hpp \
-    $$PWD/Csv2Ts.hpp \
-    $$PWD/CsvBuilder.hpp \
-    $$PWD/CsvParser.hpp \
-    $$PWD/IConverter.hpp \
-    $$PWD/ReadableFileConverter.hpp \
-    $$PWD/Reader.hpp \
-    $$PWD/Ts2Csv.hpp \
-    $$PWD/Ts2Xlsx.hpp \
-    $$PWD/TsBuilder.hpp \
-    $$PWD/TsParser.hpp \
-    $$PWD/TsPod.hpp \
-    $$PWD/Version.hpp \
-    $$PWD/Writer.hpp \
-    $$PWD/Xlsx2Ts.hpp \
-    $$PWD/XlsxBuilder.hpp \
-    $$PWD/XlsxParser.hpp \
-    $$PWD/Xlsx2csv.hpp \
-    $$PWD/Csv2Xlsx.hpp
+include(x2x/x2x.pri)
+include(convert/convert.pri)
+include(read/read.pri)
+include(write/write.pri)
+
+#maybe i should just do that:
+#INCLUDEPATH += $$PWD/.
+#includes would become longer but easier to understand
+#and would force who uses them to learn
+#how files are organized

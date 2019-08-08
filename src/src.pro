@@ -3,8 +3,9 @@ CONFIG += c++17
 CONFIG -= app_bundle
 QT += quick
 
-include($$PWD/qtxlsxwriter/src/xlsx/qtxlsx.pri)
 include($$PWD/src.pri)
+include($$PWD/main/main.pri)
+include($$PWD/../3rdParty/3rdParty.pro)
 
 CONFIG(release, debug|release) {
     CONFIG += qtquickcompiler
@@ -19,6 +20,3 @@ CONFIG(debug, debug|release) {
     QMAKE_CXXFLAGS += --debug
 }
 
-SOURCES += $$PWD/main.cpp
-
-RESOURCES += $$PWD/qml.qrc

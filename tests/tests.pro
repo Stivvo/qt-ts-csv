@@ -1,4 +1,5 @@
-include(gtest_dependency.pri)
+include($$PWD/../src/src.pri)
+include($$PWD/catch/catch.pro)
 
 TEMPLATE = app
 CONFIG -= app_bundle
@@ -6,9 +7,6 @@ CONFIG += console c++17 thread
 LIBS += -lstdc++fs
 
 INCLUDEPATH += $$PWD/../src
-
-include($$PWD/../src/qtxlsxwriter/src/xlsx/qtxlsx.pri)
-include($$PWD/../src/src.pri)
 
 HEADERS += \
     $$PWD/Path.hpp \

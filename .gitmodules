@@ -1,3 +1,12 @@
 [submodule "libs/googletests"]
 	path = libs/googletests
 	url = https://github.com/google/googletest.git
+[submodule "libs/xlsx/OpenXLSX"]
+	path = libs/xlsx/OpenXLSX
+	url = https://github.com/troldal/OpenXLSX.git
+[submodule "tests/catch/Catch2"]
+	path = tests/catch/Catch2
+	url = https://github.com/catchorg/Catch2.git
+[submodule "3rdParty/xlsx/OpenXLSX"]
+	path = 3rdParty/xlsx/OpenXLSX
+	url = https://github.com/troldal/OpenXLSX.git
