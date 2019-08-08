@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     engine.rootContext()->setContextProperty(QStringLiteral("version"),
                                              QString::fromStdString(str_ver));
 
-    engine.load(QUrl(QStringLiteral("qrc:Graphics.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty()) {
         return -1;
     }
