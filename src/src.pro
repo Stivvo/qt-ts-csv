@@ -19,8 +19,6 @@ CONFIG(debug, debug|release) {
     QMAKE_CXXFLAGS += --debug
 }
 
-SOURCES += \
-    $$PWD/main.cpp \
+SOURCES += $$PWD/main.cpp
 
-RESOURCES += \
-    $$PWD/qml.qrc
+RESOURCES += $$PWD/qml.qrc
