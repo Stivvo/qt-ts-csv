@@ -5,7 +5,10 @@
 #include <iostream>
 #include <string>
 
-struct Path {
+class Path {
+private:
+    static std::string sp;
+public:
     std::string get_files_basename() const noexcept
     {
         auto current = std::experimental::filesystem::current_path();
@@ -15,12 +18,27 @@ struct Path {
             return str;
         }
 
+        std::string ret;
         str.erase(it, str.size());
-        return (str + "qt-ts-csv/tests/files/");
+
+        ret = str + "qt-ts-csv" + sp + "tests" + sp + "files" + sp;
+        return ret;
     }
     static void teardown(std::vector<std::string> &docs)
     {
         for (std::string &t : docs)
             std::experimental::filesystem::remove(t);
     }
+    static void initSep() {
+        #ifdef _WIN32
+        sp = "\\";
+        #else
+        sp = "//";
+        #endif
+    }
+    static std::string sep() {
+        return sp;
+    }
 };
+
+std::string Path::sp = "\\";
