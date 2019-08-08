@@ -11,7 +11,7 @@ class tst_TsCsv : public testing::Test
 {
   public:
     std::vector<std::string> docs;
-    std::string f = "csv_ts/";
+    std::string f = Path().get_files_basename() + "csv_ts" + Path::sep();
 
     bool cmp_file(const std::string &in, const std::string &out,
                   const std::string &expected);
@@ -35,7 +35,7 @@ TEST_F(tst_TsCsv, conversion)
 
 TEST_F(tst_TsCsv, multirow)
 {
-    auto file_compare = Path().get_files_basename() + f + "multirow.csv";
+    auto file_compare = f + "multirow.csv";
     EXPECT_TRUE(
         cmp_file("r2.csv", "t2.ts", Reader().read(std::move(file_compare))));
 }
@@ -61,7 +61,7 @@ TEST_F(tst_TsCsv, dontDeleteUnfinished)
 
 TEST_F(tst_TsCsv, completeConversion)
 {
-    auto file_compare = Path().get_files_basename() + f + "tc4.csv";
+    auto file_compare = f + "tc4.csv";
     EXPECT_TRUE(
         cmp_file("r4.csv", "t4.ts", Reader().read(std::move(file_compare))));
 }
@@ -69,9 +69,9 @@ TEST_F(tst_TsCsv, completeConversion)
 bool tst_TsCsv::cmp_file(const std::string &in, const std::string &out,
                          const std::string &expected)
 {
-    auto doc = Path().get_files_basename() + f + in;
+    auto doc = f + in;
     docs.emplace_back(doc);
-    Ts2Csv().convert(Path().get_files_basename() + f + out, doc.c_str());
+    Ts2Csv().convert(f + out, doc.c_str());
 
     return Reader().read(std::move(doc)) == expected;
 }

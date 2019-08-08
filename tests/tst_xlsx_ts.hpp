@@ -19,43 +19,42 @@ class tst_xlsx_ts : public testing::Test
     std::vector<std::string> docs;
     bool cmp_file(const std::string &in, const std::string &out,
                   const std::string &expected);
+    std::string f = Path().get_files_basename() + "ts_xlsx" + Path::sep();
 
   protected:
     void TearDown() override
     {
         Path().teardown(docs);
     }
-
-    virtual void SetUp() {}
 };
 
 TEST_F(tst_xlsx_ts, conversion)
 {
-    EXPECT_TRUE(cmp_file("ts_xlsx/conversionIn.xlsx",
-                         "ts_xlsx/conversionOut.ts",
-                         "ts_xlsx/conversionIn.ts"));
+    EXPECT_TRUE(cmp_file("conversionIn.xlsx",
+                         "conversionOut.ts",
+                         "conversionIn.ts"));
 }
 
 TEST_F(tst_xlsx_ts, multirow)
 {
-    EXPECT_TRUE(cmp_file("ts_xlsx/multirowIn.xlsx", "ts_xlsx/multirowOut.ts",
-                         "ts_xlsx/multirowIn.ts"));
+    EXPECT_TRUE(cmp_file("multirowIn.xlsx", "multirowOut.ts",
+                         "multirowIn.ts"));
 }
 
 TEST_F(tst_xlsx_ts, completeConversion)
 {
-    EXPECT_TRUE(cmp_file("ts_xlsx/completeIn.xlsx", "ts_xlsx/completeOut.ts",
-                         "ts_xlsx/completeIn.ts"));
+    EXPECT_TRUE(cmp_file("completeIn.xlsx", "completeOut.ts",
+                         "completeIn.ts"));
 }
 
 bool tst_xlsx_ts::cmp_file(const std::string &in, const std::string &out,
                            const std::string &expected)
 {
-    std::string doc          = Path().get_files_basename() + out;
-    std::string file_compare = Path().get_files_basename() + expected;
+    std::string doc          =  f + out;
+    std::string file_compare = f + expected;
     docs.emplace_back(doc);
 
-    Xlsx2Ts().convert(Path().get_files_basename() + in, doc.c_str());
+    Xlsx2Ts().convert(f + in, doc.c_str());
 
     auto docReaded = TsParser().parse(Reader().read(std::move(doc)));
     auto file_compareReaded =

@@ -13,14 +13,13 @@ class test_ts_xlsx : public testing::Test
     std::vector<std::string> docs;
     bool cmp_file(const std::string &in, const std::string &out,
                   const std::string &expected);
-    std::string f = "ts_xlsx/";
+    std::string f = Path().get_files_basename() + "ts_xlsx" + Path::sep();
 
   protected:
     void TearDown() override
     {
         Path().teardown(docs);
     }
-    void SetUp() override {}
 };
 
 TEST_F(test_ts_xlsx, conversion)
@@ -32,12 +31,15 @@ TEST_F(test_ts_xlsx, conversion)
 bool test_ts_xlsx::cmp_file(const std::string &in, const std::string &out,
                             const std::string &expected)
 {
-    auto doc = Path().get_files_basename() + f + out;
+    auto doc = f + out;
+    auto docCstr = doc.c_str();
     docs.push_back(doc);
+    std::string input = f + in;
 
-    Ts2Xlsx().convert(std::move(Path().get_files_basename() + f + in),
-                      std::move(doc.c_str()));
+    Ts2Xlsx().convert(std::move(input),
+                      std::move(doc));
 
-    return XlsxParser().parse(doc.c_str()) ==
-           XlsxParser().parse(Path().get_files_basename() + f + expected);
+    std::string file_compare = f + expected;
+    return XlsxParser().parse(std::move(docCstr)) ==
+           XlsxParser().parse(std::move(file_compare));
 }
