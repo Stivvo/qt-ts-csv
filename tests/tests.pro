@@ -16,5 +16,5 @@ SOURCES += \
 #    $$PWD/tst_ts_xlsx.cpp \
 #    $$PWD/tst_xlsx_ts.cpp \
 #    $$PWD/tst_xlsx_csv.cpp \
- \#    $$PWD/tst_csv_xlsx.cpp
+#    $$PWD/tst_csv_xlsx.cpp
 
