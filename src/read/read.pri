@@ -9,3 +9,5 @@ SOURCES += \
     $$PWD/CsvParser.cpp \
     $$PWD/TsParser.cpp \
     $$PWD/XlsxParser.cpp
+
+INCLUDEPATH += $$PWD

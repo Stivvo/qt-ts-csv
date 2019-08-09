@@ -13,3 +13,5 @@ SOURCES += \
     $$PWD/Xlsx2Ts.cpp \
     $$PWD/Csv2Xlsx.cpp \
     $$PWD/Xlsx2csv.cpp
+
+INCLUDEPATH += $$PWD

@@ -9,3 +9,5 @@ SOURCES += \
     $$PWD/CsvBuilder.cpp \
     $$PWD/TsBuilder.cpp \
     $$PWD/XlsxBuilder.cpp
+
+INCLUDEPATH += $$PWD

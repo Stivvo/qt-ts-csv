@@ -1,7 +1,6 @@
 #include "XlsxParser.hpp"
 
-#include "@library/@openxlsx/interfaces/c++/headers/OpenXLSX.h"
-
+#include <OpenXLSX.h>
 #include <algorithm>
 #include <chrono>
 #include <iomanip>
@@ -89,8 +88,6 @@ std::string XlsxParser::rmR(const std::string &s) const
     for (int i = 0; i < s.size(); ++i) {
         if (s[i] != '\r')
             out += s[i];
-        else
-            out.size();
     }
     return out;
 }

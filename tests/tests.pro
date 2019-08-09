@@ -1,25 +1,20 @@
+include($$PWD/../src/3rdParty/3rdParty.pri)
 include($$PWD/../src/src.pri)
-include($$PWD/catch/catch.pro)
+include($$PWD/catch/catch.pri)
 
 TEMPLATE = app
 CONFIG -= app_bundle
 CONFIG += console c++17 thread
 LIBS += -lstdc++fs
 
-INCLUDEPATH += \
-    $$PWD/../src \
-    $$PWD/catch/Catch2/include/
-
-HEADERS += \
+SOURCES += \
     $$PWD/Path.hpp \
     $$PWD/Debug.hpp \
-    $$PWD/tst_ts_csv.hpp \
-    $$PWD/tst_csv_ts.hpp \
-    $$PWD/tst_ts_xlsx.hpp \
-    $$PWD/tst_xlsx_ts.hpp \
-    $$PWD/tst_xls_csv.hpp \
-    $$PWD/tst_csv_xls.hpp
+    $$PWD/maincatch.cpp \
+    $$PWD/tst_ts_csv.cpp \
+#    $$PWD/tst_csv_ts.cpp \
+#    $$PWD/tst_ts_xlsx.cpp \
+#    $$PWD/tst_xlsx_ts.cpp \
+#    $$PWD/tst_xlsx_csv.cpp \
+ \#    $$PWD/tst_csv_xlsx.cpp
 
-SOURCES += main.cpp
-
-XLSX_NO_LIB

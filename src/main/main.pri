@@ -4,7 +4,6 @@ HEADERS += $$PWD/Version.hpp
 
 SOURCES += \
     $$PWD/main.cpp \
-    $$PWD/Version.cpp \
+    $$PWD/Version.cpp
 
-DISTFILES += \
-    $$PWD/main.qml
+DISTFILES += $$PWD/main.qml
