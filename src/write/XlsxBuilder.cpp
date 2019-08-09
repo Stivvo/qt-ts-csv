@@ -1,51 +1,58 @@
 #include "XlsxBuilder.hpp"
 
+#include "interfaces/c++/headers/OpenXLSX.h"
+
+#include <chrono>
+#include <iomanip>
+#include <string>
+
 void XlsxBuilder::build(const TsPOD &ts, std::string name) const
 {
-    //    QXlsx::Document doc;
-    //    int col = 1;
-    //    int row = 1;
+    OpenXLSX::XLDocument doc;
+    doc.CreateDocument(name);
+    doc.Workbook().AddWorksheet("sheet1");
+    auto wbk = doc.Workbook();
+    wbk.AddWorksheet("sheet1");
+    auto wks = wbk.Worksheet("sheet1");
 
-    //    doc.write(row, col++, "context");
-    //    doc.write(row, col++, "source");
-    //    doc.write(row, col++, "translation");
-    //    doc.write(row, col++, "location");
+    int col = 1;
+    int row = 1;
 
-    //    for (int i = 1; i < ts.max_locations; ++i) {
-    //        doc.write(row, col++, "location");
-    //    }
+    wks.Cell("A1").Value() = "context";
+    wks.Cell("A2").Value() = "source";
+    wks.Cell("A3").Value() = "translation";
+    wks.Cell("A4").Value() = "location";
 
-    //    doc.write(row, col++, "version");
-    //    doc.write(row, col++, "language");
+    for (int i = 1; i < ts.max_locations; ++i)
+        wks.Row(row).Cell(col++).Value() = "location";
 
-    //    bool write_ver = true;
-    //    for (const auto &c : ts) {
-    //        for (const auto &d : c.translations) {
-    //            col = 1;
-    //            ++row;
-    //            doc.write(row, col++, QString::fromStdString(c.name));
-    //            doc.write(row, col++, QString::fromStdString(d.source));
-    //            doc.write(row, col++, QString::fromStdString(d.tr));
-    //            for (unsigned long long i = 0; i < ts.max_locations; ++i) {
-    //                if (d.locations.size() != 0 && i <= d.locations.size() -
-    //                1) {
-    //                    doc.write(row, col++,
-    //                              QString::fromStdString(d.locations[i].path)
-    //                              +
-    //                                  " - " +
-    //                                  QString::number(d.locations[i].line));
-    //                } else {
-    //                    col++;
-    //                }
-    //            }
-    //            if (write_ver) {
-    //                write_ver = false;
-    //                doc.write(row, col++, QString::fromStdString(ts.version));
-    //                doc.write(row, col++,
-    //                QString::fromStdString(ts.language));
-    //            }
-    //        }
-    //    }
+    wks.Row(row).Cell(col++).Value() = "version";
+    wks.Row(row).Cell(col++).Value() = "language";
 
-    //    doc.saveAs(QString::fromStdString(name));
+    bool write_ver = true;
+    for (const auto &c : ts) {
+        for (const auto &d : c.translations) {
+            col = 1;
+            ++row;
+
+            wks.Row(row).Cell(col++).Value() = c.name;
+            wks.Row(row).Cell(col++).Value() = d.source;
+            wks.Row(row).Cell(col++).Value() = d.tr;
+
+            for (unsigned long long i = 0; i < ts.max_locations; ++i) {
+                if (d.locations.size() != 0 && i <= d.locations.size() - 1) {
+                    wks.Row(row).Cell(col++).Value() =
+                        d.locations[i].path + " - " +
+                        std::to_string(d.locations[i].line);
+                } else
+                    ++col;
+            }
+            if (write_ver) {
+                write_ver                        = false;
+                wks.Row(row).Cell(col++).Value() = ts.version;
+                wks.Row(row).Cell(col++).Value() = ts.language;
+            }
+        }
+    }
+    doc.SaveDocument();
 }

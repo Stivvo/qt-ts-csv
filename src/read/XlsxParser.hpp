@@ -2,8 +2,6 @@
 
 #include "TsPod.hpp"
 
-//#include <xlsxdocument.h>
-
 class XlsxParser
 {
   public:
