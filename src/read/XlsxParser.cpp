@@ -1,6 +1,6 @@
 #include "XlsxParser.hpp"
 
-#include "interfaces/c++/headers/OpenXLSX.h"
+#include "@library/@openxlsx/interfaces/c++/headers/OpenXLSX.h"
 
 #include <algorithm>
 #include <chrono>

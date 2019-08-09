@@ -6,7 +6,9 @@ CONFIG -= app_bundle
 CONFIG += console c++17 thread
 LIBS += -lstdc++fs
 
-INCLUDEPATH += $$PWD/../src
+INCLUDEPATH += \
+    $$PWD/../src \
+    $$PWD/catch/Catch2/include/
 
 HEADERS += \
     $$PWD/Path.hpp \

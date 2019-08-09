@@ -6,9 +6,11 @@ INCLUDEPATH += \
     $$PWD/x2x/
 
 INCLUDEPATH += \
-    $$PWD/../3rdParty/xlsx/OpenXLSX/ \
-    $$PWD/../3rdParty/xml/rapidxml-1.13/
+    $$PWD/../3rdParty/xml/rapidxml-1.13/ \
+    $$PWD/../../3rdParty/xlsx/OpenXLSX/@library/@openxlsx/interfaces/c++/headers/
 
+#    $$PWD/../3rdParty/xlsx/OpenXLSX/ \
+#    $$PWD/../3rdParty/xlsx/OpenXLSX/@library/@openxlsx/interfaces/c++/headers/ \
 include(x2x/x2x.pri)
 include(convert/convert.pri)
 include(read/read.pri)

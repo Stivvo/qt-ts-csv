@@ -1,6 +1,7 @@
 #include "XlsxBuilder.hpp"
 
-#include "interfaces/c++/headers/OpenXLSX.h"
+//#include "interfaces/c++/headers/OpenXLSX.h"
+#include "OpenXLSX.h"
 
 #include <chrono>
 #include <iomanip>
