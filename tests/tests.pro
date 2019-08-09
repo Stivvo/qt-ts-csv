@@ -8,7 +8,7 @@ CONFIG += console c++17 thread
 LIBS += -lstdc++fs
 
 SOURCES += \
-    $$PWD/Path.hpp \
+    $$PWD/TestHelper.hpp \
     $$PWD/Debug.hpp \
     $$PWD/maincatch.cpp \
     $$PWD/tst_ts_csv.cpp \

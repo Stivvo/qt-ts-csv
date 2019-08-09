@@ -1,6 +1,7 @@
 INCLUDEPATH += \
     $$PWD \
-    $$PWD/Catch2/include/
+    $$PWD/Catch2/include/ \
+    $$PWD/Catch2/include/internal
 
 HEADERS += \
     $$PWD/Catch2/include/catch.hpp \
@@ -123,8 +124,6 @@ HEADERS += \
     $$PWD/Catch2/include/reporters/catch_reporter_tap.hpp \
     $$PWD/Catch2/include/reporters/catch_reporter_teamcity.hpp \
     $$PWD/Catch2/include/reporters/catch_reporter_xml.h \
-    $$PWD/Catch2/projects/XCode/OCTest/OCTest/CatchOCTestCase.h \
-    $$PWD/Catch2/projects/XCode/OCTest/OCTest/TestObj.h \
     $$PWD/Catch2/single_include/catch2/catch.hpp \
     $$PWD/Catch2/single_include/catch2/catch_reporter_automake.hpp \
     $$PWD/Catch2/single_include/catch2/catch_reporter_tap.hpp \
@@ -201,4 +200,5 @@ SOURCES += \
     $$PWD/Catch2/include/reporters/catch_reporter_console.cpp \
     $$PWD/Catch2/include/reporters/catch_reporter_junit.cpp \
     $$PWD/Catch2/include/reporters/catch_reporter_listening.cpp \
-    $$PWD/Catch2/include/reporters/catch_reporter_xml.cpp \
+    $$PWD/Catch2/include/reporters/catch_reporter_xml.cpp
+

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Debug.hpp"
 #include "Path.hpp"
 #include "Reader.hpp"

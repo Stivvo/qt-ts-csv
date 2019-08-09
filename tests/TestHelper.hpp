@@ -2,46 +2,47 @@
 
 #include <algorithm>
 #include <experimental/filesystem>
-#include <iostream>
 #include <string>
 
-class Path
+class TestHelper
 {
   private:
-    std::string sp;
+    static std::string sp;
+    static std::string pth;
+    static std::vector<std::string> docs;
 
   public:
-    Path()
+    static void init()
     {
+        //        start sp based on the user's platform
+
 #ifdef _WIN32
         sp = "\\";
 #else
         sp = "/";
 #endif
-    }
-    std::string get_files_basename() const noexcept
-    {
+
+        // start pth based on the current path position + test files path
         auto current = std::experimental::filesystem::current_path();
         auto str     = current.string();
         auto it      = str.find("build");
         if (it == std::string::npos) {
-            return str;
+            return;
         }
-
-        std::string ret;
         str.erase(it, str.size());
-
-        ret = str + "qt-ts-csv" + sp + "tests" + sp + "files" + sp;
-        return ret;
+        pth = str + "qt-ts-csv" + sp + "tests" + sp + "files" + sp;
     }
-    void teardown(std::vector<std::string> &docs)
+    static void teardown()
     {
         for (std::string &t : docs)
             std::experimental::filesystem::remove(t);
     }
-    void initSep() {}
-    std::string sep()
+    static std::string sep()
     {
         return sp;
+    }
+    static std::string fullPath(std::string fldr)
+    {
+        return pth + fldr + sp;
     }
 };

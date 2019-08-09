@@ -1,5 +1,3 @@
-#pragma once
-
 #include <Reader.hpp>
 #include <Xlsx2csv.hpp>
 #include <catch.hpp>
@@ -19,5 +17,5 @@ TEST_CASE("XLSX -> CSV")
 
     //        EXPECT_EQ(Reader().read(n_doc), Reader().read(file_compare));
     //    }
-    //    remove(n_doc);
+    //        remove(n_doc);
 }

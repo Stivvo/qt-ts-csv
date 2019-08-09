@@ -1,21 +1,16 @@
-#pragma once
-
 #include "Debug.hpp"
-#include "Path.hpp"
+#include "TestHelper.hpp"
 
 #include <Ts2Csv.hpp>
 #include <catch.hpp>
 
-std::vector<std::string> docs;
-Path p;
-std::string f = p.get_files_basename() + "csv_ts" + p.sep();
-
 bool cmp_file(const std::string &in, const std::string &out,
               const std::string &expected)
 {
+    std::string f          = TestHelper::fullPath("csv_ts");
     std::string doc        = f + out;
     std::string input_file = f + in;
-    docs.emplace_back(doc);
+    docs.push_back(doc);
 
     Ts2Csv().convert(std::move(input_file), std::string(doc));
     auto docReaded = Reader().read(std::move(doc));
@@ -27,6 +22,7 @@ bool cmp_file(const std::string &in, const std::string &out,
 
 TEST_CASE("TS -> CSV")
 {
+    auto f = TestHelper::fullPath("csv_ts");
     SECTION("conversion")
     {
         const auto exp =
@@ -67,5 +63,4 @@ TEST_CASE("TS -> CSV")
         REQUIRE(cmp_file("t4.ts", "r4.csv",
                          Reader().read(std::move(file_compare))));
     }
-    Path().teardown(docs);
 }

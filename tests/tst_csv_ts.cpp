@@ -1,14 +1,8 @@
-#pragma once
-
 #include "Debug.hpp"
 #include "Path.hpp"
 
 #include <Csv2Ts.hpp>
 #include <catch.hpp>
-
-std::vector<std::string> docs;
-Path p;
-std::string f = p.get_files_basename() + "csv_ts" + p.sep();
 
 TEST_CASE("CSV -> TS")
 {
@@ -24,5 +18,4 @@ TEST_CASE("CSV -> TS")
         std::string expected  = Reader().read(std::move(file_compare));
         CHECK(docReaded == expected);
     }
-    Path().teardown(docs);
 }

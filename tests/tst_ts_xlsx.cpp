@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Path.hpp"
 #include "Ts2Xlsx.hpp"
 #include "XlsxParser.hpp"
