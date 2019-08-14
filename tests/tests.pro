@@ -7,9 +7,13 @@ CONFIG -= app_bundle
 CONFIG += console c++17 thread
 LIBS += -lstdc++fs
 
+SUBDIRS += tests
+QMAKE_CXXFLAGS += -std=c++17
+QMAKE_CXXFLAGS += -Wall
+QMAKE_CXXFLAGS += -Wconversion
+
 SOURCES += \
     $$PWD/TestHelper.hpp \
-    $$PWD/Debug.hpp \
     $$PWD/maincatch.cpp \
     $$PWD/tst_ts_csv.cpp \
 #    $$PWD/tst_csv_ts.cpp \

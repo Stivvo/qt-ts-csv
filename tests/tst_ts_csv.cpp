@@ -1,4 +1,3 @@
-#include "Debug.hpp"
 #include "TestHelper.hpp"
 
 #include <Ts2Csv.hpp>
@@ -10,12 +9,12 @@ bool cmp_file(const std::string &in, const std::string &out,
     std::string f          = TestHelper::fullPath("csv_ts");
     std::string doc        = f + out;
     std::string input_file = f + in;
-    docs.push_back(doc);
+    TestHelper::pushDocs(doc);
 
     Ts2Csv().convert(std::move(input_file), std::string(doc));
     auto docReaded = Reader().read(std::move(doc));
 
-    Debug::findDiff(docReaded, expected);
+    TestHelper::findDiff(docReaded, expected);
 
     return docReaded == expected;
 }
