@@ -4,14 +4,16 @@
 
 #include <catch.hpp>
 
-std::string TestHelper::sp  = "";
-std::string TestHelper::pth = "";
-std::list<std::string> TestHelper::docs;
-
 int main(int argc, char *argv[])
 {
     TestHelper::init();
-    //    int result = Catch::Session().run(argc, argv);
+
+    Catch::Session session;
+    int ret = session.applyCommandLine(argc, argv);
+    if (ret != 0)
+        return ret;
+    int result = session.run(argc, argv);
+
     TestHelper::teardown();
-    return /*result*/ 0;
+    return result;
 }

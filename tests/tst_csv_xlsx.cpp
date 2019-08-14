@@ -1,30 +1,22 @@
+#include "TestHelper.hpp"
+
 #include <Csv2Xlsx.hpp>
-#include <Reader.hpp>
 #include <XlsxParser.hpp>
-#include <catch.hpp>
 
-// class test_csv_xlsx : public testing::Test
-//{
-//  public:
-//    const char *n_doc;
+TEST_CASE("CSV -> XLSX")
+{
+    std::string f = TestHelper::fullPath("csv_ts");
 
-//  protected:
-//    virtual void TearDown()
-//    {
-//        remove(n_doc);
-//    }
+    SECTION("complete conversion")
+    {
+        std::string doc          = f + "out.xlsx";
+        auto doc1                = doc;
+        std::string file_compare = f + "exp.xlsx";
+        std::string input_file   = f + "exp.csv";
+        TestHelper::pushDocs(doc);
 
-//    virtual void SetUp()
-//    {
-//        n_doc = nullptr;
-//    }
-//};
-
-// TEST_F(test_csv_xlsx, completeConversion)
-//{
-//    n_doc                   = "../../qt-ts-csv/tests/files/csv_xlsx/out.xlsx";
-//    const auto file_compare = "../../qt-ts-csv/tests/files/csv_xlsx/exp.xlsx";
-//    Csv2Xlsx().convert("../../qt-ts-csv/tests/files/csv_xlsx/exp.csv", n_doc);
-
-//    EXPECT_EQ(XlsxParser().parse(n_doc), XlsxParser().parse(file_compare));
-//}
+        Csv2Xlsx().convert(std::move(input_file), std::move(doc));
+        CHECK(XlsxParser().parse(std::move(doc1)) ==
+              XlsxParser().parse(std::move(file_compare)));
+    }
+}

@@ -1,24 +1,17 @@
-#include "Debug.hpp"
-#include "Path.hpp"
-#include "Reader.hpp"
-#include "Ts2Xlsx.hpp"
-#include "TsParser.hpp"
-#include "Xlsx2Ts.hpp"
-#include "XlsxParser.hpp"
+#include "TestHelper.hpp"
 
-#include <catch.hpp>
-#include <iostream>
-
-Path p;
-std::vector<std::string> docs;
-std::string f = p.get_files_basename() + "ts_xlsx" + p.sep();
+#include <TsParser.hpp>
+#include <Xlsx2Ts.hpp>
+#include <XlsxParser.hpp>
 
 static bool cmp_file(const std::string &in, const std::string &out,
                      const std::string &expected)
 {
+    std::string f = TestHelper::fullPath("ts_xlsx");
+
     std::string doc          = f + out;
     std::string file_compare = f + expected;
-    docs.emplace_back(doc);
+    TestHelper::pushDocs(doc);
 
     Xlsx2Ts().convert(f + in, doc.c_str());
 
@@ -46,5 +39,4 @@ TEST_CASE("XLSX -> TS")
     {
         REQUIRE(cmp_file("completeIn.xlsx", "completeOut.ts", "completeIn.ts"));
     }
-    Path().teardown(docs);
 }

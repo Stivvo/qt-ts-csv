@@ -1,19 +1,16 @@
-#include "Path.hpp"
-#include "Ts2Xlsx.hpp"
-#include "XlsxParser.hpp"
+#include "TestHelper.hpp"
 
-#include <catch.hpp>
-
-Path p;
-std::string f = p.get_files_basename() + "ts_xlsx" + p.sep();
-std::vector<std::string> docs;
+#include <Ts2Xlsx.hpp>
+#include <XlsxParser.hpp>
 
 static bool cmp_file(const std::string &in, const std::string &out,
                      const std::string &expected)
 {
+    std::string f = TestHelper::fullPath("ts_xlsx");
+
     auto doc     = f + out;
     auto docCstr = doc.c_str();
-    docs.push_back(doc);
+    TestHelper::pushDocs(doc);
     std::string input = f + in;
 
     Ts2Xlsx().convert(std::move(input), std::move(doc));
@@ -30,6 +27,4 @@ TEST_CASE("TS -> XLSX")
         REQUIRE(cmp_file("conversionIn.ts", "conversionOut.xlsx",
                          "conversionIn.xlsx"));
     }
-
-    Path().teardown(docs);
 }

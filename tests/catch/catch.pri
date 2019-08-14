@@ -1,5 +1,6 @@
 INCLUDEPATH += \
     $$PWD \
+    $$PWD/Catch2 \
     $$PWD/Catch2/include/ \
     $$PWD/Catch2/include/internal
 
