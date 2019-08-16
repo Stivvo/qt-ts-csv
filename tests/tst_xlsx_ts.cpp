@@ -10,10 +10,12 @@ static bool cmp_file(const std::string &in, const std::string &out,
     std::string f = TestHelper::fullPath("ts_xlsx");
 
     std::string doc          = f + out;
+    auto doc1                = doc;
     std::string file_compare = f + expected;
+    std::string input_file   = f + in;
     TestHelper::pushDocs(doc);
 
-    Xlsx2Ts().convert(f + in, doc.c_str());
+    Xlsx2Ts().convert(std::move(input_file), std::move(doc1));
 
     auto docReaded = TsParser().parse(Reader().read(std::move(doc)));
     auto file_compareReaded =

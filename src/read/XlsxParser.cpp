@@ -21,19 +21,18 @@ template<class Container> void split1(const std::string &str, Container &cont)
 TsPOD XlsxParser::parse(std::string &&name) const
 {
     OpenXLSX::XLDocument doc;
-    doc.CreateDocument(name);
-    doc.Workbook().AddWorksheet("sheet1");
+    doc.OpenDocument(name);
     auto wbk = doc.Workbook();
-    wbk.AddWorksheet("sheet1");
-    auto wks = wbk.Worksheet("sheet1");
+    auto wks = wbk.Worksheet(wbk.WorksheetNames()[0]);
 
     TsPOD ret;
     int row          = 1;
     int col          = 0;
     std::string cell = "";
+
     do {
         col++;
-        cell = wks.Row(row).Cell(col).Value().Get<std::string>();
+        cell = wks.Row(row).Cell(col).Value().AsString();
     } while (cell.compare("language") != 0);
 
     int row_lenght                          = col;
@@ -45,13 +44,18 @@ TsPOD XlsxParser::parse(std::string &&name) const
     const unsigned short field_not_location = 5;
     ret.max_locations =
         static_cast<unsigned short>(row_lenght) - field_not_location;
-    col = 1;
-    ++row;
-    for (row; row < wks.RowCount(); ++row) {
+
+    for (row = 2; row < wks.RowCount() + 1; ++row) {
+        bool mpty = true;
         class Context c;
         class Translation t;
-        for (; col <= row_lenght; col++) {
-            cell = wks.Row(row).Cell(col).Value().Get<std::string>();
+        for (col = 1; col <= row_lenght; col++) {
+            if (wks.Row(row).Cell(col).Value().AsString().empty())
+                cell.clear();
+            else {
+                mpty = false;
+                cell = wks.Row(row).Cell(col).Value().Get<std::string>();
+            }
 
             if (col == Context) {
                 c.name = cell;
@@ -67,17 +71,18 @@ TsPOD XlsxParser::parse(std::string &&name) const
                 Location l;
                 std::vector<std::string> loc;
                 split1(cell, loc);
-                if (loc.empty() || cell.empty()) {
+
+                if (loc.empty() || cell.empty())
                     continue;
-                }
+
                 l.path = loc.front();
                 l.line = static_cast<unsigned>(std::stoi(loc.back()));
                 t.locations.emplace_back(std::move(l));
             }
         }
         c.translations.emplace_back(std::move(t));
-        ret.emplace_back(std::move(c));
-        col = 1;
+        if (!mpty)
+            ret.emplace_back(std::move(c));
     }
     return ret;
 }

@@ -14,7 +14,10 @@ TEST_CASE("XLSX -> CSV")
         TestHelper::pushDocs(doc1);
 
         Xlsx2Csv().convert(std::move(input_file), std::move(doc));
-        CHECK(Reader().read(std::move(doc1)) ==
-              Reader().read(std::move(file_compare)));
+
+        std::string docReaded = Reader().read(std::move(doc1));
+        std::string expected  = Reader().read(std::move(file_compare));
+
+        CHECK(docReaded == expected);
     }
 }
