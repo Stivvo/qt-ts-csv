@@ -11,7 +11,8 @@ class Location
 
     bool operator==(const Location &other) const
     {
-        return path == other.path && line == other.line;
+        bool ret = path == other.path && line == other.line;
+        return ret;
     }
 
     bool operator!=(const Location &other) const

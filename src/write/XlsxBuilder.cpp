@@ -9,18 +9,20 @@ void XlsxBuilder::build(const TsPOD &ts, std::string name) const
 {
     OpenXLSX::XLDocument doc;
     doc.CreateDocument(name);
-    doc.Workbook().AddWorksheet("sheet1");
+    //    doc.OpenDocument(name);
     auto wbk = doc.Workbook();
-    wbk.AddWorksheet("sheet1");
-    auto wks = wbk.Worksheet("sheet1");
+    auto wks = wbk.Worksheet(wbk.WorksheetNames().at(0));
+    //     a worksheet is automatically creted with the document
 
-    int col = 1;
+    int col = 5;
     int row = 1;
 
     wks.Cell("A1").Value() = "context";
-    wks.Cell("A2").Value() = "source";
-    wks.Cell("A3").Value() = "translation";
-    wks.Cell("A4").Value() = "location";
+    wks.Cell("B1").Value() = "source";
+    wks.Cell("C1").Value() = "translation";
+    wks.Cell("D1").Value() = "location";
+
+    auto maxlocations = ts.max_locations;
 
     for (int i = 1; i < ts.max_locations; ++i)
         wks.Row(row).Cell(col++).Value() = "location";
@@ -53,5 +55,6 @@ void XlsxBuilder::build(const TsPOD &ts, std::string name) const
             }
         }
     }
-    doc.SaveDocument();
+    doc.SaveDocumentAs(name);
+    //    doc.CloseDocument();
 }

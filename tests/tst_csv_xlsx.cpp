@@ -5,7 +5,7 @@
 
 TEST_CASE("CSV -> XLSX")
 {
-    std::string f = TestHelper::fullPath("csv_ts");
+    std::string f = TestHelper::fullPath("xlsx_csv");
 
     SECTION("complete conversion")
     {
@@ -13,10 +13,13 @@ TEST_CASE("CSV -> XLSX")
         auto doc1                = doc;
         std::string file_compare = f + "exp.xlsx";
         std::string input_file   = f + "exp.csv";
-        TestHelper::pushDocs(doc);
 
         Csv2Xlsx().convert(std::move(input_file), std::move(doc));
-        CHECK(XlsxParser().parse(std::move(doc1)) ==
-              XlsxParser().parse(std::move(file_compare)));
+        TestHelper::pushDocs(doc);
+
+        auto docReaded = XlsxParser().parse(std::move(doc1));
+        auto expected  = XlsxParser().parse(std::move(file_compare));
+
+        CHECK(docReaded == expected);
     }
 }

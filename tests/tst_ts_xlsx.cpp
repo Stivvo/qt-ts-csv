@@ -4,20 +4,24 @@
 #include <XlsxParser.hpp>
 
 static bool cmp_file(const std::string &in, const std::string &out,
-                     const std::string &expected)
+                     const std::string &exp)
 {
+    //    f means file
+    //    r means file readed
     std::string f = TestHelper::fullPath("ts_xlsx");
 
-    auto doc     = f + out;
-    auto docCstr = doc.c_str();
-    TestHelper::pushDocs(doc);
-    std::string input = f + in;
+    std::string fOut = f + out;
+    std::string fIn  = f + in;
+    std::string fExp = f + exp;
+    auto fOut1       = fOut;
 
-    Ts2Xlsx().convert(std::move(input), std::move(doc));
+    TestHelper::pushDocs(fOut);
+    Ts2Xlsx().convert(std::move(fIn), std::move(fOut));
 
-    std::string file_compare = f + expected;
-    return XlsxParser().parse(std::move(docCstr)) ==
-           XlsxParser().parse(std::move(file_compare));
+    auto rOut = XlsxParser().parse(std::move(fOut1));
+    auto rExp = XlsxParser().parse(std::move(fExp));
+
+    return rOut == rExp;
 }
 
 TEST_CASE("TS -> XLSX")

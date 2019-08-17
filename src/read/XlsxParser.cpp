@@ -23,7 +23,7 @@ TsPOD XlsxParser::parse(std::string &&name) const
     OpenXLSX::XLDocument doc;
     doc.OpenDocument(name);
     auto wbk = doc.Workbook();
-    auto wks = wbk.Worksheet(wbk.WorksheetNames()[0]);
+    auto wks = wbk.Worksheet(wbk.WorksheetNames().at(0));
 
     TsPOD ret;
     int row          = 1;
@@ -45,6 +45,7 @@ TsPOD XlsxParser::parse(std::string &&name) const
     ret.max_locations =
         static_cast<unsigned short>(row_lenght) - field_not_location;
 
+    auto RowCount = wks.RowCount();
     for (row = 2; row < wks.RowCount() + 1; ++row) {
         bool mpty = true;
         class Context c;
@@ -84,6 +85,8 @@ TsPOD XlsxParser::parse(std::string &&name) const
         if (!mpty)
             ret.emplace_back(std::move(c));
     }
+    doc.SaveDocumentAs(name);
+    doc.CloseDocument();
     return ret;
 }
 

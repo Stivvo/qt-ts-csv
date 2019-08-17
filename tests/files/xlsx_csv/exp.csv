@@ -16,4 +16,4 @@
 "AutoCookRecipeSettings"|"Salva"|"Save"|"../../QML/NewGraphic_AutoCook/AutoCookRecipeSettings.qml - 58"|""|""|""
 "TaskDetailsPage"|"Abilitare?"|"Enable?"|"../../QML/NewGraphic_Scheduler/TaskDetailsPage.qml - 185"|""|""|""
 "TaskDetailsPage"|"LUN"|"MON"|"../../QML/NewGraphic_Scheduler/TaskDetailsPage.qml - 217"|""|""|""
-"serialequadro"|"Write error: "|"Write error: "|"../../src/serialequadro.cpp - 1207"|""|""|""
+"serialequadro"|"Write error: "|"Write error:"|"../../src/serialequadro.cpp - 1207"|""|""|""
