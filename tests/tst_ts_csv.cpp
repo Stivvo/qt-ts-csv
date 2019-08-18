@@ -3,19 +3,18 @@
 #include <Ts2Csv.hpp>
 
 bool cmp_file(const std::string &in, const std::string &out,
-              const std::string &expected)
+              const std::string &exp)
 {
-    std::string f          = TestHelper::fullPath("csv_ts");
-    std::string doc        = f + out;
-    std::string input_file = f + in;
-    TestHelper::pushDocs(doc);
+    std::string f    = TestHelper::fullPath("csv_ts");
+    std::string fOut = f + out;
+    std::string fIn  = f + in;
+    auto fOut1       = fOut;
 
-    Ts2Csv().convert(std::move(input_file), std::string(doc));
-    auto docReaded = Reader().read(std::move(doc));
+    TestHelper::pushDocs(fOut);
+    Ts2Csv().convert(std::move(fIn), std::string(std::move(fOut)));
 
-    //    TestHelper::findDiff(docReaded, expected);
-
-    return docReaded == expected;
+    auto rOut = Reader().read(std::move(fOut1));
+    return rOut == exp;
 }
 
 TEST_CASE("TS -> CSV")
@@ -27,14 +26,14 @@ TEST_CASE("TS -> CSV")
             R"("context"|"source"|"translation"|"location"|"version"|"language"
 "AddNewForm"|"Cottura Manuale"|"Manual Cooking"|"../../QML/OggettiEditDash/AddNewForm.qml - 21"|"2.1"|"en_GB"
 )";
-        REQUIRE(cmp_file("t1.ts", "r1.csv", exp));
+        CHECK(cmp_file("t1.ts", "r1.csv", exp));
     }
 
     SECTION("multirow")
     {
         auto file_compare = f + "multirow.csv";
-        REQUIRE(cmp_file("t2.ts", "r2.csv",
-                         Reader().read(std::move(file_compare))));
+        CHECK(cmp_file("t2.ts", "r2.csv",
+                       Reader().read(std::move(file_compare))));
     }
 
     SECTION("type vanished and obsolete")
@@ -42,7 +41,7 @@ TEST_CASE("TS -> CSV")
         const auto exp =
             R"("context"|"source"|"translation"|"location"|"version"|"language"
 )";
-        REQUIRE(cmp_file("t3.ts", "r3.csv", exp));
+        CHECK(cmp_file("t3.ts", "r3.csv", exp));
     }
 
     SECTION("don't delete unfinished")
@@ -52,13 +51,13 @@ TEST_CASE("TS -> CSV")
 "ProgrammaSettmodel"|"h"|"h"|"../../../Ricette/programmasettmodel.cpp - 687"|"2.1"|"en_US"
 "ProgrammaSettmodel"|"g"|""|"../../../Ricette/programmasettmodel.cpp - 655"|""|""
 )";
-        REQUIRE(cmp_file("t5.ts", "r5.csv", exp));
+        CHECK(cmp_file("t5.ts", "r5.csv", exp));
     }
 
     SECTION("complete conversion")
     {
         auto file_compare = f + "tc4.csv";
-        REQUIRE(cmp_file("t4.ts", "r4.csv",
-                         Reader().read(std::move(file_compare))));
+        CHECK(cmp_file("t4.ts", "r4.csv",
+                       Reader().read(std::move(file_compare))));
     }
 }

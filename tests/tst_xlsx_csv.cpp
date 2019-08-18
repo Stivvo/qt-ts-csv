@@ -7,18 +7,17 @@ TEST_CASE("XLSX -> CSV")
     std::string f = TestHelper::fullPath("xlsx_csv");
     SECTION("complete conversion")
     {
-        std::string doc          = f + "out.csv";
-        auto doc1                = doc;
-        std::string file_compare = f + "exp.csv";
-        std::string input_file   = f + "exp.xlsx";
+        std::string fOut = f + "out.csv";
+        std::string fIn  = f + "exp.xlsx";
+        std::string fExp = f + "exp.csv";
+        auto fOut1       = fOut;
 
-        Xlsx2Csv().convert(std::move(input_file), std::move(doc));
-        TestHelper::pushDocs(doc);
+        TestHelper::pushDocs(fOut);
+        Xlsx2Csv().convert(std::move(fIn), std::move(fOut));
 
-        std::string docReaded = Reader().read(std::move(doc1));
-        std::string expected  = Reader().read(std::move(file_compare));
-        TestHelper::findDiff(docReaded, expected);
+        auto rOut = Reader().read(std::move(fOut1));
+        auto rExp = Reader().read(std::move(fExp));
 
-        CHECK(docReaded == expected);
+        CHECK(rOut == rExp);
     }
 }

@@ -5,40 +5,39 @@
 #include <XlsxParser.hpp>
 
 static bool cmp_file(const std::string &in, const std::string &out,
-                     const std::string &expected)
+                     const std::string &exp)
 {
     std::string f = TestHelper::fullPath("ts_xlsx");
 
-    std::string doc          = f + out;
-    auto doc1                = doc;
-    std::string file_compare = f + expected;
-    std::string input_file   = f + in;
-    TestHelper::pushDocs(doc);
+    std::string fOut = f + out;
+    std::string fIn  = f + in;
+    std::string fExp = f + exp;
+    auto fOut1       = fOut;
 
-    Xlsx2Ts().convert(std::move(input_file), std::move(doc1));
+    TestHelper::pushDocs(fOut);
+    Xlsx2Ts().convert(std::move(fIn), std::move(fOut));
 
-    auto docReaded = TsParser().parse(Reader().read(std::move(doc)));
-    auto file_compareReaded =
-        TsParser().parse(Reader().read(std::move(file_compare)));
+    auto rOut = TsParser().parse(Reader().read(std::move(fOut1)));
+    auto rExp = TsParser().parse(Reader().read(std::move(fExp)));
 
-    return docReaded == file_compareReaded;
+    return rOut == rExp;
 }
 
 TEST_CASE("XLSX -> TS")
 {
     SECTION("conversion")
     {
-        REQUIRE(cmp_file("conversionIn.xlsx", "conversionOut.ts",
-                         "conversionIn.ts"));
+        CHECK(cmp_file("conversionIn.xlsx", "conversionOut.ts",
+                       "conversionIn.ts"));
     }
 
     SECTION("multirow")
     {
-        REQUIRE(cmp_file("multirowIn.xlsx", "multirowOut.ts", "multirowIn.ts"));
+        CHECK(cmp_file("multirowIn.xlsx", "multirowOut.ts", "multirowIn.ts"));
     }
 
     SECTION("complete Conversion")
     {
-        REQUIRE(cmp_file("completeIn.xlsx", "completeOut.ts", "completeIn.ts"));
+        CHECK(cmp_file("completeIn.xlsx", "completeOut.ts", "completeIn.ts"));
     }
 }

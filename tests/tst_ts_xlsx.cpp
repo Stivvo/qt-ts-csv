@@ -6,8 +6,6 @@
 static bool cmp_file(const std::string &in, const std::string &out,
                      const std::string &exp)
 {
-    //    f means file
-    //    r means file readed
     std::string f = TestHelper::fullPath("ts_xlsx");
 
     std::string fOut = f + out;
@@ -28,7 +26,7 @@ TEST_CASE("TS -> XLSX")
 {
     SECTION("conversion")
     {
-        REQUIRE(cmp_file("conversionIn.ts", "conversionOut.xlsx",
-                         "conversionIn.xlsx"));
+        CHECK(cmp_file("conversionIn.ts", "conversionOut.xlsx",
+                       "conversionIn.xlsx"));
     }
 }

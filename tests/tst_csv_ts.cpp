@@ -7,14 +7,16 @@ TEST_CASE("CSV -> TS")
     std::string f = TestHelper::fullPath("csv_ts");
     SECTION("complete conversion")
     {
-        auto doc          = f + "out.ts";
-        auto file_compare = f + "exp.ts";
-        auto input_file   = f + "in.csv";
-        Csv2Ts().convert(std::move(input_file), std::move(doc.c_str()));
-        TestHelper::pushDocs(doc);
+        std::string fOut = f + "out.ts";
+        std::string fIn  = f + "in.csv";
+        std::string fExp = f + "exp.ts";
+        auto fOut1       = fOut;
 
-        std::string docReaded = Reader().read(std::move(doc));
-        std::string expected  = Reader().read(std::move(file_compare));
-        CHECK(docReaded == expected);
+        TestHelper::pushDocs(fOut);
+        Csv2Ts().convert(std::move(fIn), std::move(fOut));
+
+        auto rOut = Reader().read(std::move(fOut1));
+        auto rExp = Reader().read(std::move(fExp));
+        CHECK(rOut == rExp);
     }
 }

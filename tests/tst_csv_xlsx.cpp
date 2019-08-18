@@ -9,17 +9,17 @@ TEST_CASE("CSV -> XLSX")
 
     SECTION("complete conversion")
     {
-        std::string doc          = f + "out.xlsx";
-        auto doc1                = doc;
-        std::string file_compare = f + "exp.xlsx";
-        std::string input_file   = f + "exp.csv";
+        std::string fOut = f + "out.xlsx";
+        std::string fIn  = f + "exp.csv";
+        std::string fExp = f + "exp.xlsx";
+        auto fOut1       = fOut;
 
-        Csv2Xlsx().convert(std::move(input_file), std::move(doc));
-        TestHelper::pushDocs(doc);
+        TestHelper::pushDocs(fOut);
+        Csv2Xlsx().convert(std::move(fIn), std::move(fOut));
 
-        auto docReaded = XlsxParser().parse(std::move(doc1));
-        auto expected  = XlsxParser().parse(std::move(file_compare));
+        auto rOut = XlsxParser().parse(std::move(fOut1));
+        auto rExp = XlsxParser().parse(std::move(fExp));
 
-        CHECK(docReaded == expected);
+        CHECK(rOut == rExp);
     }
 }
