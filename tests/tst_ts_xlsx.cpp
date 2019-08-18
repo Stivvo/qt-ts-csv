@@ -8,13 +8,15 @@ static bool cmp_file(const std::string &in, const std::string &out,
 {
     std::string f = TestHelper::fullPath("ts_xlsx");
 
-    std::string fOut = f + out;
     std::string fIn  = f + in;
+    std::string fOut = f + out;
     std::string fExp = f + exp;
     auto fOut1       = fOut;
 
-    TestHelper::pushDocs(fOut);
-    Ts2Xlsx().convert(std::move(fIn), std::move(fOut));
+    if (fOut.find("Saved", 0) == std::string::npos) {
+        TestHelper::pushDocs(fOut);
+        Ts2Xlsx().convert(std::move(fIn), std::move(fOut));
+    }
 
     auto rOut = XlsxParser().parse(std::move(fOut1));
     auto rExp = XlsxParser().parse(std::move(fExp));
@@ -27,6 +29,13 @@ TEST_CASE("TS -> XLSX")
     SECTION("conversion")
     {
         CHECK(cmp_file("conversionIn.ts", "conversionOut.xlsx",
+                       "conversionIn.xlsx"));
+    }
+
+    SECTION(
+        "compare the saved output of conversion with the manual expected file")
+    {
+        CHECK(cmp_file("conversionIn.ts", "conversionOutSaved.xlsx",
                        "conversionIn.xlsx"));
     }
 }

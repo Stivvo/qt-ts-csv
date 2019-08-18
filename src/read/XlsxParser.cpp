@@ -84,7 +84,6 @@ TsPOD XlsxParser::parse(std::string &&name) const
         if (!mpty)
             ret.emplace_back(std::move(c));
     }
-    doc.SaveDocumentAs(name);
     doc.CloseDocument();
     return ret;
 }
