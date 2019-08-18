@@ -3,11 +3,9 @@
 #include <string>
 #include <vector>
 
-class Location
-{
-  public:
+struct Location {
     std::string path;
-    unsigned line;
+    unsigned line{};
 
     bool operator==(const Location &other) const
     {
@@ -21,9 +19,7 @@ class Location
     }
 };
 
-class Translation
-{
-  public:
+struct Translation {
     std::vector<Location> locations;
     std::string source;
     std::string tr;
@@ -50,9 +46,7 @@ class Translation
     }
 };
 
-class Context
-{
-  public:
+struct Context {
     std::string name;
     std::vector<Translation> translations;
 
@@ -78,12 +72,10 @@ class Context
     }
 };
 
-class TsPOD : public std::vector<Context>
-{
-  public:
+struct TsPOD : public std::vector<Context> {
     std::string language;
     std::string version;
-    uint16_t max_locations;
+    uint16_t max_locations{};
 
     bool operator==(const TsPOD &other) const
     {

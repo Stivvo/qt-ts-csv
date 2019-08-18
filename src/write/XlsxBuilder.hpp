@@ -7,5 +7,5 @@
 class XlsxBuilder
 {
   public:
-    void build(const TsPOD &ts, std::string name) const;
+    void build(const TsPOD &ts, std::string &&name) const;
 };

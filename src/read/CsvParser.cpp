@@ -27,8 +27,8 @@ TsPOD CsvParser::parse(std::string &&content) const
     const uint16_t field_not_location = 5;
     ret.max_locations = static_cast<uint16_t>(row_lenght) - field_not_location;
     for (size_t i = 0; i < tokens.size() - 1; i += row_lenght) {
-        class Context c;
-        class Translation t;
+        struct Context c;
+        struct Translation t;
         for (size_t j = 0; j < row_lenght; ++j) {
             auto token = tokens.at(j + i);
             auto pos_i = token.find_first_of('\"');
@@ -50,7 +50,7 @@ TsPOD CsvParser::parse(std::string &&content) const
                 Location l;
                 std::vector<std::string> loc;
                 split1(token, loc);
-                if (loc.empty() || token == ("\"\"")) {
+                if (loc.empty() || token == static_cast<std::string>("\"\"")) {
                     continue;
                 }
                 l.path = loc.front().substr(pos_i);

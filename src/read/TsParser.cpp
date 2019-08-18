@@ -3,7 +3,11 @@
 TsPOD TsParser::parse(std::string &&content)
 {
     rapidxml::xml_document<> doc;
-    doc.parse<0>(const_cast<char *>(content.c_str()));
+    char *contentCstr = const_cast<char *>(content.c_str());
+    doc.parse<0>(contentCstr);
+    //    there still is a warning: "do not use static cast"
+    //    but it must be usedbecouse contents.c_str() returns a static char*
+    //    while doc.parse() requires a non const char*
 
     TsPOD ret;
     auto node    = doc.first_node();
@@ -118,9 +122,9 @@ bool TsParser::check_attribute_type(rapidxml::xml_attribute<char> *att)
 std::string TsParser::rmR(const std::string &s) const
 {
     std::string out;
-    for (int i = 0; i < s.size(); ++i) {
-        if (s[i] != '\r')
-            out += s[i];
+    for (char i : s) {
+        if (i != '\r')
+            out += i;
     }
     return out;
 }

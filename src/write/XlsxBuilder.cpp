@@ -5,7 +5,7 @@
 #include <iomanip>
 #include <string>
 
-void XlsxBuilder::build(const TsPOD &ts, std::string name) const
+void XlsxBuilder::build(const TsPOD &ts, std::string &&name) const
 {
     OpenXLSX::XLDocument doc;
     doc.CreateDocument(name);
@@ -14,15 +14,13 @@ void XlsxBuilder::build(const TsPOD &ts, std::string name) const
     auto wks = wbk.Worksheet(wbk.WorksheetNames().at(0));
     //     a worksheet is automatically creted with the document
 
-    int col = 5;
-    int row = 1;
+    unsigned int col = 5;
+    unsigned int row = 1;
 
     wks.Cell("A1").Value() = "context";
     wks.Cell("B1").Value() = "source";
     wks.Cell("C1").Value() = "translation";
     wks.Cell("D1").Value() = "location";
-
-    auto maxlocations = ts.max_locations;
 
     for (int i = 1; i < ts.max_locations; ++i)
         wks.Row(row).Cell(col++).Value() = "location";
@@ -41,7 +39,7 @@ void XlsxBuilder::build(const TsPOD &ts, std::string name) const
             wks.Row(row).Cell(col++).Value() = d.tr;
 
             for (unsigned long long i = 0; i < ts.max_locations; ++i) {
-                if (d.locations.size() != 0 && i <= d.locations.size() - 1) {
+                if (!d.locations.empty() && i <= d.locations.size() - 1) {
                     wks.Row(row).Cell(col++).Value() =
                         d.locations[i].path + " - " +
                         std::to_string(d.locations[i].line);

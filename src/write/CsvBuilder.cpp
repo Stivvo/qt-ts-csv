@@ -59,9 +59,9 @@ std::ostringstream CSVBuilder::build(const TsPOD &ts) const
 std::string CSVBuilder::rmR(const std::string &s) const
 {
     std::string out;
-    for (int i = 0; i < s.size(); ++i) {
-        if (s[i] != '\r')
-            out += s[i];
+    for (char i : s) {
+        if (i != '\r')
+            out += i;
     }
     return out;
 }

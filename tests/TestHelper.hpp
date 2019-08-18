@@ -17,8 +17,8 @@ class TestHelper
     static void init();
     static void teardown();
 
-    static std::string fullPath(std::string fldr);
-    static void pushDocs(std::string doc);
+    static std::string fullPath(const std::string &fldr);
+    static void pushDocs(const std::string &doc);
     static std::string findDiff(const std::string &docReaded,
                                 const std::string &expected);
 };

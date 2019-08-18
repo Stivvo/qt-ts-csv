@@ -26,30 +26,29 @@ TsPOD XlsxParser::parse(std::string &&name) const
     auto wks = wbk.Worksheet(wbk.WorksheetNames().at(0));
 
     TsPOD ret;
-    int row          = 1;
-    int col          = 0;
-    std::string cell = "";
+    unsigned int row = 1;
+    unsigned int col = 0;
+    std::string cell;
 
     do {
         col++;
         cell = wks.Row(row).Cell(col).Value().AsString();
-    } while (cell.compare("language") != 0);
+    } while (cell != "language");
 
-    int row_lenght                          = col;
-    int Context                             = 1;
-    int Source                              = 2;
-    int Translation                         = 3;
-    int Version                             = row_lenght - 1;
-    int Language                            = row_lenght;
+    unsigned int row_lenght                 = col;
+    unsigned int Context                    = 1;
+    unsigned int Source                     = 2;
+    unsigned int Translation                = 3;
+    unsigned int Version                    = row_lenght - 1;
+    unsigned int Language                   = row_lenght;
     const unsigned short field_not_location = 5;
     ret.max_locations =
         static_cast<unsigned short>(row_lenght) - field_not_location;
 
-    auto RowCount = wks.RowCount();
     for (row = 2; row < wks.RowCount() + 1; ++row) {
         bool mpty = true;
-        class Context c;
-        class Translation t;
+        struct Context c;
+        struct Translation t;
         for (col = 1; col <= row_lenght; col++) {
             if (wks.Row(row).Cell(col).Value().AsString().empty())
                 cell.clear();
@@ -93,9 +92,9 @@ TsPOD XlsxParser::parse(std::string &&name) const
 std::string XlsxParser::rmR(const std::string &s) const
 {
     std::string out;
-    for (int i = 0; i < s.size(); ++i) {
-        if (s[i] != '\r')
-            out += s[i];
+    for (char i : s) {
+        if (i != '\r')
+            out += i;
     }
     return out;
 }

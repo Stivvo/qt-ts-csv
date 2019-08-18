@@ -3,8 +3,8 @@
 #include <experimental/filesystem>
 #include <iostream>
 
-std::string TestHelper::sp  = "";
-std::string TestHelper::pth = "";
+std::string TestHelper::sp;
+std::string TestHelper::pth;
 std::list<std::string> TestHelper::docs;
 
 void TestHelper::init()
@@ -33,24 +33,25 @@ void TestHelper::teardown()
         docs.pop_front();
     }
 }
-std::string TestHelper::fullPath(std::string fldr)
+std::string TestHelper::fullPath(const std::string &fldr)
 {
     return pth + fldr + sp;
 }
-void TestHelper::pushDocs(std::string doc)
+void TestHelper::pushDocs(const std::string &doc)
 {
     docs.push_front(doc);
 }
 std::string TestHelper::findDiff(const std::string &docReaded,
                                  const std::string &expected)
 {
-    std::string diffs = "";
-    int j             = 0;
-    for (int i = 0; i < expected.size(); ++i) {
-        if (expected[i] == docReaded[j])
+    std::string diffs;
+    unsigned long j = 0;
+
+    for (char i : expected) {
+        if (i == docReaded[j])
             ++j;
         else
-            diffs += expected[i];
+            diffs += i;
     }
     std::cout << "docReaded: " << std::endl << docReaded << std::endl;
     std::cout << "expected: " << std::endl << expected << std::endl;
