@@ -19,4 +19,3 @@ CONFIG(debug, debug|release) {
     QMAKE_CXXFLAGS -= -O3z
     QMAKE_CXXFLAGS += --debug
 }
-

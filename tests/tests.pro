@@ -23,6 +23,3 @@ SOURCES += \
     $$PWD/tst_xlsx_ts.cpp \
     $$PWD/tst_xlsx_csv.cpp \
     $$PWD/tst_csv_xlsx.cpp
-
-#        f means file
-#        r means file readed

@@ -46,7 +46,7 @@ ApplicationWindow {
         ColumnLayout {
             Layout.margins: 30
 
-            RowLayout { //selezione del file di input
+            RowLayout {
 
                 Button {
                     Layout.fillWidth: true
@@ -81,10 +81,10 @@ ApplicationWindow {
 
                     }
                 }
-            } //end row Layout
+            }
 
 
-            RowLayout { //visualizza il file selezionato in input
+            RowLayout {
                 id: showInput
                 Text {
                     id: showInputText
@@ -97,7 +97,7 @@ ApplicationWindow {
 
         ColumnLayout {
             Layout.margins: 30
-            RowLayout { //selezione file di output
+            RowLayout {
                 id: output
 
                 Button {
@@ -117,9 +117,9 @@ ApplicationWindow {
                                                                              cb_Dest.currentText)
                     }
                 }
-            } // end file output
+            }
 
-            RowLayout {  //visualizza file di output
+            RowLayout {
                 id: showOutput
 
                 Text {
@@ -134,7 +134,7 @@ ApplicationWindow {
 
         ColumnLayout {
             Layout.margins: 30
-            RowLayout { //bottone
+            RowLayout {
                 id: conversion
 
                 Button {
@@ -155,5 +155,5 @@ ApplicationWindow {
                 }
             }
         }
-    } //end application layout
-} //end ApplicationWindow
+    }
+}
