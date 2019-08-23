@@ -1,25 +1,25 @@
-include(gtest_dependency.pri)
+include($$PWD/../src/3rdParty/3rdParty.pri)
+include($$PWD/../src/src.pri)
+include($$PWD/catch/catch.pri)
 
 TEMPLATE = app
 CONFIG -= app_bundle
 CONFIG += console c++17 thread
 LIBS += -lstdc++fs
 
-INCLUDEPATH += $$PWD/../src
+SUBDIRS += tests
+QMAKE_CXXFLAGS += -std=c++17
+QMAKE_CXXFLAGS += -Wall
+QMAKE_CXXFLAGS += -Wconversion
 
-include($$PWD/../src/qtxlsxwriter/src/xlsx/qtxlsx.pri)
-include($$PWD/../src/src.pri)
+HEADERS += $$PWD/TestHelper.hpp
 
-HEADERS += \
-    $$PWD/Path.hpp \
-    $$PWD/Debug.hpp \
-    $$PWD/tst_ts_csv.hpp \
-    $$PWD/tst_csv_ts.hpp \
-    $$PWD/tst_ts_xlsx.hpp \
-    $$PWD/tst_xlsx_ts.hpp \
-    $$PWD/tst_xls_csv.hpp \
-    $$PWD/tst_csv_xls.hpp
-
-SOURCES += main.cpp
-
-XLSX_NO_LIB
+SOURCES += \
+    $$PWD/TestHelper.cpp \
+    $$PWD/maincatch.cpp \
+    $$PWD/tst_ts_csv.cpp \
+    $$PWD/tst_csv_ts.cpp \
+    $$PWD/tst_ts_xlsx.cpp \
+    $$PWD/tst_xlsx_ts.cpp \
+    $$PWD/tst_xlsx_csv.cpp \
+    $$PWD/tst_csv_xlsx.cpp
