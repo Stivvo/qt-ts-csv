@@ -9,10 +9,8 @@ void XlsxBuilder::build(const TsPOD &ts, std::string &&name) const
 {
     OpenXLSX::XLDocument doc;
     doc.CreateDocument(name);
-    //    doc.OpenDocument(name);
     auto wbk = doc.Workbook();
     auto wks = wbk.Worksheet(wbk.WorksheetNames().at(0));
-    //     a worksheet is automatically creted with the document
 
     unsigned int col = 5;
     unsigned int row = 1;
@@ -54,5 +52,4 @@ void XlsxBuilder::build(const TsPOD &ts, std::string &&name) const
         }
     }
     doc.SaveDocumentAs(name);
-    //    doc.CloseDocument();
 }

@@ -36,8 +36,7 @@ QString Converter::convert() const
         if (output.find(".csv") != std::string::npos) {
             Ts2Csv().convert(std::move(input), std::move(output));
         } else if (output.find(".xlsx") != std::string::npos) {
-            //            Ts2Xlsx().convert(std::move(input),
-            //            std::move(output));
+            Ts2Xlsx().convert(std::move(input), std::move(output));
         } else {
             return QStringLiteral("Invalid conversion");
         }

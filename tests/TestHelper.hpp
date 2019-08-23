@@ -1,6 +1,5 @@
 #pragma once
 
-// used in all tests
 #include <Reader.hpp>
 #include <catch.hpp>
 #include <catch/Catch2/include/internal/catch_session.h>
