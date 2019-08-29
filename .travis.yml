@@ -9,6 +9,7 @@ dist: bionic
 before_install:
   - sudo add-apt-repository --yes ppa:beineri/opt-qt-5.12.3-bionic
   - sudo apt-get update -qq
+  - sudo pip install codecov
 
 install:
   - sudo apt-get -y install libgl1-mesa-dev
@@ -22,7 +23,7 @@ script:
   - cd build
   - /opt/qt512/bin/qmake ../qt-linguist-to-csv.pro
   - make -j$(nproc)
-  - ../scripts/cov.sh
+  - sudo ./../scripts/cov.sh
 
 after_success: 
   - bash <(curl -s https://codecov.io/bash)
