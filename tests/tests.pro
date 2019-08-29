@@ -4,13 +4,10 @@ include($$PWD/catch/catch.pri)
 
 TEMPLATE = app
 CONFIG -= app_bundle
-CONFIG += console c++17 thread
+CONFIG += c++1z console thread
 LIBS += -lstdc++fs
 
 SUBDIRS += tests
-QMAKE_CXXFLAGS += -std=c++17
-QMAKE_CXXFLAGS += -Wall
-QMAKE_CXXFLAGS += -Wconversion
 
 HEADERS += $$PWD/TestHelper.hpp
 
