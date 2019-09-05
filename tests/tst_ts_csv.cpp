@@ -25,8 +25,8 @@ TEST_CASE("TS -> CSV")
         {
             const auto exp =
                 R"("context"|"source"|"translation"|"location"|"version"|"language"
-    "AddNewForm"|"Cottura Manuale"|"Manual Cooking"|"../../QML/OggettiEditDash/AddNewForm.qml - 21"|"2.1"|"en_GB"
-    )";
+"AddNewForm"|"Cottura Manuale"|"Manual Cooking"|"../../QML/OggettiEditDash/AddNewForm.qml - 21"|"2.1"|"en_GB"
+)";
             CHECK(cmp_file("t1.ts", "r1.csv", exp));
         }
 
@@ -41,7 +41,7 @@ TEST_CASE("TS -> CSV")
         {
             const auto exp =
                 R"("context"|"source"|"translation"|"location"|"version"|"language"
-    )";
+)";
             CHECK(cmp_file("t3.ts", "r3.csv", exp));
         }
 
@@ -49,9 +49,9 @@ TEST_CASE("TS -> CSV")
         {
             const auto exp =
                 R"("context"|"source"|"translation"|"location"|"version"|"language"
-    "ProgrammaSettmodel"|"h"|"h"|"../../../Ricette/programmasettmodel.cpp - 687"|"2.1"|"en_US"
-    "ProgrammaSettmodel"|"g"|""|"../../../Ricette/programmasettmodel.cpp - 655"|""|""
-    )";
+"ProgrammaSettmodel"|"h"|"h"|"../../../Ricette/programmasettmodel.cpp - 687"|"2.1"|"en_US"
+"ProgrammaSettmodel"|"g"|""|"../../../Ricette/programmasettmodel.cpp - 655"|""|""
+)";
             CHECK(cmp_file("t5.ts", "r5.csv", exp));
         }
 

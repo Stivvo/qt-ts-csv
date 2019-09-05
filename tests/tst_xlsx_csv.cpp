@@ -19,8 +19,6 @@ TEST_CASE("XLSX -> CSV")
             auto rOut = Reader().read(std::move(fOut1));
             auto rExp = Reader().read(std::move(fExp));
 
-            TestHelper::findDiff(rOut, rExp);
-
             CHECK(rOut == rExp);
         }
     }
