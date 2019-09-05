@@ -8,14 +8,13 @@ ApplicationWindow {
     visible: true
     title: qsTr("Converter ") + version
 
-    height: 400
-    width: 400
+    height: 300
+    width: 380
 
-    minimumHeight: 400
-    minimumWidth: 350
+    minimumHeight: 280
+    minimumWidth: 300
 
     FileDialog {
-
         id: fileChooseInput
         title: "Source file"
         nameFilters: []
@@ -33,7 +32,6 @@ ApplicationWindow {
         title: "Destination folder"
         folder: StandardPaths.standardLocations(StandardPaths.DesktopLocation)[0]
         onAccepted: {
-
             showOutputText.text = "destination: " + conv.setDest(folderChooseOutput.folder + qsTr("/output") +
                                                                  cb_Dest.currentText)
             cb_Dest.visible = true
@@ -44,7 +42,7 @@ ApplicationWindow {
         anchors.fill: parent
 
         ColumnLayout {
-            Layout.margins: 30
+            Layout.margins: 20
 
             RowLayout {
 
@@ -61,7 +59,7 @@ ApplicationWindow {
                     Layout.fillWidth: true
                     model: [".ts", ".xlsx", ".csv"]
                     onCurrentIndexChanged: {
-                        showInputText.text = "source: "
+                        showInputText.text = "source: ";
                         fileChooseInput.file = "";
                         switch(currentIndex)
                         {
@@ -78,11 +76,9 @@ ApplicationWindow {
                             cb_Dest.model = [".ts ", ".xlsx"]
                             break;
                         }
-
                     }
                 }
             }
-
 
             RowLayout {
                 id: showInput
@@ -90,13 +86,12 @@ ApplicationWindow {
                     id: showInputText
                     Layout.fillWidth: true
                     text: "source: "
-                    Layout.topMargin: 15
                 }
             }
         }
 
         ColumnLayout {
-            Layout.margins: 30
+            Layout.margins: 20
             RowLayout {
                 id: output
 
@@ -125,15 +120,13 @@ ApplicationWindow {
                 Text {
                     id: showOutputText
                     Layout.fillWidth: true
-                    Layout.topMargin: 15
                     text: "destination: " + folderChooseOutput.folder
                 }
-
             }
         }
 
         ColumnLayout {
-            Layout.margins: 30
+            Layout.margins: 20
             RowLayout {
                 id: conversion
 
