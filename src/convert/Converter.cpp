@@ -22,39 +22,41 @@ QString Converter::convert() const
         return QStringLiteral("Empty arguments");
     }
 
-    if (input.find(".ts") != std::string::npos &&
-        input.find(".csv") != std::string::npos &&
-        input.find(".xlsx") != std::string::npos) {
-        return QStringLiteral("Invalid extention");
+    if ((input.find(".ts") == std::string::npos &&
+         input.find(".csv") == std::string::npos &&
+         input.find(".xlsx") == std::string::npos) ||
+        (output.find(".ts") == std::string::npos &&
+         output.find(".csv") == std::string::npos &&
+         output.find(".xlsx") == std::string::npos)) {
+        return QStringLiteral("Invalid input extension");
     }
 
-    if (input.find(".xlsx") != std::string::npos &&
-        output.find(".ts") == std::string::npos) {
+    if ((input.find(".xlsx") != std::string::npos &&
+         output.find(".xlsx") != std::string::npos) ||
+        (input.find(".csv") != std::string::npos &&
+         output.find(".csv") != std::string::npos) ||
+        (input.find(".ts") != std::string::npos &&
+         output.find(".ts") != std::string::npos)) {
         return QStringLiteral("Invalid conversion");
     }
+
     if (input.find(".ts") != std::string::npos) {
         if (output.find(".csv") != std::string::npos) {
             Ts2Csv().convert(std::move(input), std::move(output));
-        } else if (output.find(".xlsx") != std::string::npos) {
-            Ts2Xlsx().convert(std::move(input), std::move(output));
         } else {
-            return QStringLiteral("Invalid conversion");
+            Ts2Xlsx().convert(std::move(input), std::move(output));
         }
     } else if (input.find(".csv") != std::string::npos) {
         if (output.find(".ts") != std::string::npos) {
             Csv2Ts().convert(std::move(input), std::move(output));
-        } else if (output.find(".xlsx") != std::string::npos) {
-            Csv2Xlsx().convert(std::move(input), std::move(output));
         } else {
-            return QStringLiteral("Invalid conversion");
+            Csv2Xlsx().convert(std::move(input), std::move(output));
         }
-    } else if (input.find(".xlsx") != std::string::npos) {
+    } else { // input is .xlsx
         if (output.find(".csv") != std::string::npos) {
             Xlsx2Csv().convert(std::move(input), std::move(output));
-        } else if (output.find(".ts") != std::string::npos) {
-            Xlsx2Ts().convert(std::move(input), std::move(output));
         } else {
-            return QStringLiteral("Invalid conversion");
+            Xlsx2Ts().convert(std::move(input), std::move(output));
         }
     }
     return QStringLiteral("Conversion terminated");
@@ -62,6 +64,9 @@ QString Converter::convert() const
 
 QString Converter::setSource(const QString &source)
 {
+    if (source.isEmpty())
+        return QString("");
+
     std::string sep = "///";
     std::string input;
 

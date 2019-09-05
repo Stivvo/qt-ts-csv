@@ -562,7 +562,7 @@
 		<message>
 			<location filename="../../QML/NewGraphic_Scheduler/TaskDetailsPage.qml" line="153"/>
             <source>Ora di
-avvio</source>
+Avvio</source>
             <translation>Start
 time</translation>
 		</message>

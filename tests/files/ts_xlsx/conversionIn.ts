@@ -5,6 +5,7 @@
 		<name>AddNewForm</name>
 		<message>
 			<location filename="../../QML/OggettiEditDash/AddNewForm.qml" line="21"/>
+			<location filename="../../QML/OggettiEditDash/AddNewForm.qml" line="21"/>
             <source>è ò à ù</source>
             <translation>é ç ° §</translation>
 		</message>
