@@ -6,6 +6,8 @@
 std::string TestHelper::sp;
 std::string TestHelper::pth;
 std::list<std::string> TestHelper::docs;
+std::vector<std::string> TestHelper::to = { "ts_csv",  "csv_ts",   "ts_xlsx",
+                                            "xlsx_ts", "xlsx_csv", "csv_xlsx" };
 
 void TestHelper::init()
 {
@@ -62,4 +64,12 @@ std::string TestHelper::findDiff(const std::string &docReaded,
               << std::endl;
 
     return diffs;
+}
+bool TestHelper::ToRun(const std::string &s)
+{
+    for (std::string i : to) {
+        if (i == s)
+            return true;
+    }
+    return false;
 }
