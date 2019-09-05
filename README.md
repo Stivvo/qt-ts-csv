@@ -4,21 +4,31 @@
 A tool to generate csv and xlsx file from qt ts file and vice versa
 
 ## Build
-I used qmake systems and QtCreator as IDE.  
-* The build directory have to be on the same lavel as the repo one.
-The source directory has to be namd "qt-ts-csv".
-The build directoy has to be named "build-qt-ts-csv".  
-* It's is required the usage of windeployqt (read below)
+~~~
+sudo apt install qt5-default qtdeclarative5-dev qml-module-qtquick-controls2 libqt5-declarative-particles q2tdeclarative5-dev qml-module-qt-labs-platform qml-module-qtquick-dialogs qml-module-qtquick-layouts
+git clone --recursive https://github.com/guerinoni/qt-ts-csv.git
+mkdir build-qt-ts-csv
+cd build-qt-ts-csv
+qmake ../qt-ts-csv/qt-linguist-to-csv.pro -spec linux-g++ CONFIG+=qtquickcompiler
+make
+~~~
 
 ## Usage
-## To generate output.csv  
-![example conversion ts to csv](./doc/ts2csv.png)  
+
+### To generate output.csv  
+![example conversion ts -> csv](./doc/ts2csv.png)  
+
 ### To generate output.xlsx  
-![example conversion ts to xlsx](./doc/ts2xlsx.png)  
+![example conversion ts -> xlsx](./doc/ts2xlsx.png)  
+
+![example conversion csv -> xlsx](./doc/csv2xlsx.png)
+
 ### To generate output.ts  
-![example conversion csv to ts](./doc/csv2ts.png)  
-![example conversion xlsx to ts](./doc/xlsx2ts.png)
-![example conversion xlsx to csv](./doc/csv2xlsx.png)
+![example conversion csv -> ts](./doc/csv2ts.png)  
+
+![example conversion xlsx -> ts](./doc/xlsx2ts.png)
+
+
 ### How to use windeployqt  
 
 qmldir must be the directory where there are qml files
