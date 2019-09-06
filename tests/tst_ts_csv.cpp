@@ -41,13 +41,13 @@ Settings"|"../../QML/OggettiSettings/Connettivita.qml - 66"|"2.1"|"en_GB"
         CHECK(cmp_file("multirow_field.ts", "output_multirow_field.csv", exp));
     }
 
-    //    SECTION("type vanished and obsolete")
-    //    {
-    //        const auto exp =
-    //            R"("context"|"source"|"translation"|"location"|"version"|"language"
-    //)";
-    //        CHECK(cmp_file("t3.ts", "r3.csv", exp));
-    //    }
+    SECTION("type to discard")
+    {
+        const auto exp =
+            R"("context"|"source"|"translation"|"location"|"version"|"language"
+)";
+        CHECK(cmp_file("discard.ts", "output_discard.csv", exp));
+    }
 
     //    SECTION("don't delete unfinished")
     //    {
