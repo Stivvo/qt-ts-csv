@@ -7,7 +7,18 @@ CONFIG -= app_bundle
 CONFIG += c++1z console thread
 LIBS += -lstdc++fs
 
-SUBDIRS += tests
+CONFIG(release, debug|release) {
+    CONFIG += qtquickcompiler
+    QMAKE_CXXFLAGS += -O3
+}
+
+CONFIG(debug, debug|release) {
+    QMAKE_CXXFLAGS += -O0
+    QMAKE_CXXFLAGS -= -O1
+    QMAKE_CXXFLAGS -= -O2
+    QMAKE_CXXFLAGS -= -O3
+    QMAKE_CXXFLAGS += --debug
+}
 
 HEADERS += $$PWD/TestHelper.hpp
 
