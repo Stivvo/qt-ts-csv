@@ -40,7 +40,7 @@ TestHelper TestHelper::instance;
 //    return false;
 //}
 
-std::string TestHelper::full_path(const std::string &fldr)
+std::string TestHelper::absolute_path(const std::string &fldr)
 {
     return TestHelper::instance.pth + fldr + TestHelper::instance.sp;
 }

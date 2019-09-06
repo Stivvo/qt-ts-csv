@@ -8,7 +8,7 @@ class TestHelper
   public:
     static TestHelper instance;
 
-    static std::string full_path(const std::string &fldr);
+    static std::string absolute_path(const std::string &fldr);
     //    static std::string findDiff(const std::string &docReaded,
     //                                const std::string &expected);
 

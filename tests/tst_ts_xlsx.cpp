@@ -7,7 +7,7 @@
 static bool cmp_file(const std::string &in, const std::string &out,
                      const std::string &exp)
 {
-    std::string f = TestHelper::full_path("ts_xlsx");
+    std::string f = TestHelper::absolute_path("ts_xlsx");
 
     std::string fIn  = f + in;
     std::string fOut = f + out;

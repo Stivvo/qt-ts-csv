@@ -7,7 +7,7 @@
 bool cmp_file(const std::string &in, const std::string &out,
               const std::string &exp)
 {
-    std::string f    = TestHelper::full_path("csv_ts");
+    std::string f    = TestHelper::absolute_path("csv_ts");
     std::string fOut = f + out;
     std::string fIn  = f + in;
     auto fOut1       = fOut;
@@ -59,10 +59,11 @@ Settings"|"../../QML/OggettiSettings/Connettivita.qml - 66"|"2.1"|"en_GB"
         CHECK(cmp_file("unfinished.ts", "output_unfinished.csv", exp));
     }
 
-    //    SECTION("complete conversion")
-    //    {
-    //        auto file_compare = f + "tc4.csv";
-    //        CHECK(cmp_file("t4.ts", "r4.csv",
-    //                       Reader().read(std::move(file_compare))));
-    //    }
+    SECTION("complete conversion")
+    {
+        auto file_compare =
+            TestHelper::absolute_path("csv_ts") + "complete_expected.csv";
+        CHECK(cmp_file("complete.ts", "output_complete.csv",
+                       Reader().read(std::move(file_compare))));
+    }
 }
