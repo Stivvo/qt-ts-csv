@@ -11,6 +11,7 @@ class TestHelper
     static std::string sp;
     static std::string pth;
     static std::list<std::string> docs;
+    static std::vector<std::string> to;
 
   public:
     static void init();
@@ -20,4 +21,5 @@ class TestHelper
     static void pushDocs(const std::string &doc);
     static std::string findDiff(const std::string &docReaded,
                                 const std::string &expected);
+    static bool ToRun(const std::string &s);
 };

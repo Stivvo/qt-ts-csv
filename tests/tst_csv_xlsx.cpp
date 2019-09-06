@@ -26,14 +26,16 @@ static bool cmp_file(const std::string &in, const std::string &out,
 
 TEST_CASE("CSV -> XLSX")
 {
-    SECTION("conversion")
-    {
-        CHECK(cmp_file("exp.csv", "out.xlsx", "exp.xlsx"));
-    }
+    if (TestHelper::ToRun("csv_xlsx")) {
+        SECTION("conversion")
+        {
+            CHECK(cmp_file("exp.csv", "out.xlsx", "exp.xlsx"));
+        }
 
-    SECTION(
-        "compare the saved output of conversion with the manual expected file")
-    {
-        CHECK(cmp_file("exp.csv", "outSaved.xlsx", "exp.xlsx"));
+        SECTION("compare the saved output of conversion with the manual "
+                "expected file")
+        {
+            CHECK(cmp_file("exp.csv", "outSaved.xlsx", "exp.xlsx"));
+        }
     }
 }

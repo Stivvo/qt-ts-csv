@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS = src
+SUBDIRS = qt-ts-csv
 
 CONFIG(debug, debug|release) {
     SUBDIRS += tests

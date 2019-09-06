@@ -26,16 +26,18 @@ static bool cmp_file(const std::string &in, const std::string &out,
 
 TEST_CASE("TS -> XLSX")
 {
-    SECTION("conversion")
-    {
-        CHECK(cmp_file("conversionIn.ts", "conversionOut.xlsx",
-                       "conversionIn.xlsx"));
-    }
+    if (TestHelper::ToRun("ts_xlsx")) {
+        SECTION("conversion")
+        {
+            CHECK(cmp_file("conversionIn.ts", "conversionOut.xlsx",
+                           "conversionIn.xlsx"));
+        }
 
-    SECTION(
-        "compare the saved output of conversion with the manual expected file")
-    {
-        CHECK(cmp_file("conversionIn.ts", "conversionOutSaved.xlsx",
-                       "conversionIn.xlsx"));
+        SECTION("compare the saved output of conversion with the manual "
+                "expected file")
+        {
+            CHECK(cmp_file("conversionIn.ts", "conversionOutSaved.xlsx",
+                           "conversionIn.xlsx"));
+        }
     }
 }
