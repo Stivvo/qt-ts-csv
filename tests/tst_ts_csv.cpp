@@ -21,8 +21,7 @@ bool cmp_file(const std::string &in, const std::string &out,
 
 TEST_CASE("TS -> CSV")
 {
-    auto f = TestHelper::full_path("csv_ts");
-    SECTION("conversion")
+    SECTION("simple")
     {
         const auto exp =
             R"("context"|"source"|"translation"|"location"|"version"|"language"
@@ -31,12 +30,16 @@ TEST_CASE("TS -> CSV")
         CHECK(cmp_file("simple.ts", "output_simple.csv", exp));
     }
 
-    //    SECTION("multirow")
-    //    {
-    //        auto file_compare = f + "multirow.csv";
-    //        CHECK(cmp_file("t2.ts", "r2.csv",
-    //                       Reader().read(std::move(file_compare))));
-    //    }
+    SECTION("multirow translation")
+    {
+        const auto exp =
+            R"("context"|"source"|"translation"|"location"|"version"|"language"
+"Connettivita"|"Impostazioni
+Wi-fi"|"WI-fi
+Settings"|"../../QML/OggettiSettings/Connettivita.qml - 66"|"2.1"|"en_GB"
+)";
+        CHECK(cmp_file("multirow_field.ts", "output_multirow_field.csv", exp));
+    }
 
     //    SECTION("type vanished and obsolete")
     //    {
