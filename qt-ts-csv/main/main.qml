@@ -3,16 +3,18 @@ import QtQuick.Window 2.11
 import Qt.labs.platform 1.0
 import QtQuick.Controls 2.4
 import QtQuick.Layouts 1.3
+import QtQuick.Dialogs 1.2
 
 ApplicationWindow {
-    visible: true
     title: qsTr("Converter ") + version
 
     height: 300
     width: 380
 
-    minimumHeight: 280
+    minimumHeight: 290
     minimumWidth: 300
+
+    visible: ApplicationWindow.Windowed
 
     FileDialog {
         id: fileChooseInput
@@ -20,15 +22,16 @@ ApplicationWindow {
         nameFilters: []
         folder:
             StandardPaths.standardLocations(StandardPaths.DesktopLocation)[0]
-        onFileChanged: {
-            showInputText.text = "source: " + conv.setSource(fileChooseInput.file)
+        onAccepted: {
+            showInputText.text = "source: " + conv.setSource(fileChooseInput.fileUrl)
             inputFormat.visible = true;
         }
 
     }
 
-    FolderDialog {
+    FileDialog {
         id: folderChooseOutput
+        selectFolder: true
         title: "Destination folder"
         folder: StandardPaths.standardLocations(StandardPaths.DesktopLocation)[0]
         onAccepted: {
@@ -60,7 +63,6 @@ ApplicationWindow {
                     model: [".ts", ".xlsx", ".csv"]
                     onCurrentIndexChanged: {
                         showInputText.text = "source: ";
-                        fileChooseInput.file = "";
                         switch(currentIndex)
                         {
                         case 0:
@@ -135,15 +137,14 @@ ApplicationWindow {
                     Layout.fillWidth: true
                     text: "Convert"
                     onClicked : {
-                        conversionText.text = conv.convert()
+                        conversionOutput.text = conv.convert()
                     }
                 }
             }
 
             RowLayout {
                 Text {
-                    Layout.topMargin: 20
-                    id: conversionText
+                    id: conversionOutput
                     Layout.fillWidth: true
                 }
             }
