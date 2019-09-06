@@ -49,17 +49,15 @@ Settings"|"../../QML/OggettiSettings/Connettivita.qml - 66"|"2.1"|"en_GB"
         CHECK(cmp_file("discard.ts", "output_discard.csv", exp));
     }
 
-    //    SECTION("don't delete unfinished")
-    //    {
-    //        const auto exp =
-    //            R"("context"|"source"|"translation"|"location"|"version"|"language"
-    //"ProgrammaSettmodel"|"h"|"h"|"../../../Ricette/programmasettmodel.cpp -
-    // 687"|"2.1"|"en_US"
-    //"ProgrammaSettmodel"|"g"|""|"../../../Ricette/programmasettmodel.cpp -
-    // 655"|""|""
-    //)";
-    //        CHECK(cmp_file("t5.ts", "r5.csv", exp));
-    //    }
+    SECTION("don't delete unfinished")
+    {
+        const auto exp =
+            R"("context"|"source"|"translation"|"location"|"version"|"language"
+"ProgrammaSettmodel"|"h"|"h"|"../../../Ricette/programmasettmodel.cpp - 687"|"2.1"|"en_US"
+"ProgrammaSettmodel"|"g"|""|"../../../Ricette/programmasettmodel.cpp - 655"|""|""
+)";
+        CHECK(cmp_file("unfinished.ts", "output_unfinished.csv", exp));
+    }
 
     //    SECTION("complete conversion")
     //    {
