@@ -3,6 +3,13 @@
 # qt-ts-csv
 A tool to generate csv and xlsx file from qt ts file and vice versa
 
+## command line mode
+to execute qt-ts-csv withoud gui:
+~~~
+qt-ts-csv --cli /path/to/input/file /path/to/output/file
+~~~
+one of those extensions are required in the file names: .csv .ts .xlsx
+
 ## Build
 ~~~
 sudo apt install qt5-default qtdeclarative5-dev qml-module-qtquick-controls2 libqt5-declarative-particles q2tdeclarative5-dev qml-module-qt-labs-platform qml-module-qtquick-dialogs qml-module-qtquick-layouts
