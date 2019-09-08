@@ -15,30 +15,32 @@
 
 QString Converter::convert() const
 {
-    std::string input  = source;
-    std::string output = dest;
+    auto input  = this->source;
+    auto output = this->dest;
 
     if (input.empty() || output.empty()) {
-        return QStringLiteral("Empty arguments");
+        return "Empty arguments";
     }
 
-    if ((input.find(".ts") == std::string::npos &&
-         input.find(".csv") == std::string::npos &&
-         input.find(".xlsx") == std::string::npos) ||
-        (output.find(".ts") == std::string::npos &&
-         output.find(".csv") == std::string::npos &&
-         output.find(".xlsx") == std::string::npos)) {
-        return QStringLiteral("Invalid input extension");
-    }
+    if (input.find(".ts") == std::string::npos &&
+        input.find(".csv") == std::string::npos &&
+        input.find(".xlsx") == std::string::npos)
+        return "Invalid input extension";
 
-    if ((input.find(".xlsx") != std::string::npos &&
-         output.find(".xlsx") != std::string::npos) ||
-        (input.find(".csv") != std::string::npos &&
-         output.find(".csv") != std::string::npos) ||
-        (input.find(".ts") != std::string::npos &&
-         output.find(".ts") != std::string::npos)) {
-        return QStringLiteral("Invalid conversion");
-    }
+    if (output.find(".ts") == std::string::npos &&
+        output.find(".csv") == std::string::npos &&
+        output.find(".xlsx") == std::string::npos)
+        return "Invalid output extension";
+
+    if (input.find(".xlsx") != std::string::npos &&
+        output.find(".xlsx") != std::string::npos)
+        return "Cannot convert from xlsx to xlsx";
+    if (input.find(".csv") != std::string::npos &&
+        output.find(".csv") != std::string::npos)
+        return "Cannot convert from csv to csv";
+    if (input.find(".ts") != std::string::npos &&
+        output.find(".ts") != std::string::npos)
+        return "Cannot convert from ts to ts";
 
     if (input.find(".ts") != std::string::npos) {
         if (output.find(".csv") != std::string::npos) {
@@ -59,40 +61,40 @@ QString Converter::convert() const
             Xlsx2Ts().convert(std::move(input), std::move(output));
         }
     }
-    return QStringLiteral("Conversion terminated");
+    return "Conversion terminated";
 }
 
 QString Converter::setSource(const QString &source)
 {
-    if (source.isEmpty())
-        return QString("");
+    return setPath(source, this->source);
+}
 
-    std::string sep = "///";
-    std::string input;
-
-    input = source.toStdString();
-
-    this->source = input.substr(input.find(sep) + sep.length());
-
-#ifdef __linux__
-    this->source = "/" + this->source;
-#endif
-
-    return QString::fromStdString(this->source);
+void Converter::setSource(const std::string &source)
+{
+    this->source = source;
 }
 
 QString Converter::setDest(const QString &dest)
 {
-    std::string sep = "///";
-    std::string input;
+    return setPath(dest, this->dest);
+}
 
-    input = dest.toStdString();
+void Converter::setDest(const std::string &dest)
+{
+    this->dest = dest;
+}
 
-    this->dest = input.substr(input.find(sep) + sep.length());
+QString Converter::setPath(const QString &path, std::string &thispath)
+{
+    if (!path.isEmpty()) {
+        std::string sep = "///";
+
+        thispath = path.toStdString();
+        thispath = thispath.substr(thispath.find(sep) + sep.length());
 
 #ifdef __linux__
-    this->dest = "/" + this->dest;
+        thispath = "/" + thispath;
 #endif
-
-    return QString::fromStdString(this->dest);
+    }
+    return QString::fromStdString(thispath);
 }
