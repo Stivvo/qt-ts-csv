@@ -1,9 +1,10 @@
 #pragma once
 
 #include <Reader.hpp>
-#include <catch.hpp>
+#include <catch/Catch2/include/catch.hpp>
 #include <catch/Catch2/include/internal/catch_session.h>
 #include <list>
+#include <vector>
 
 class TestHelper
 {

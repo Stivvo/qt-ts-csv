@@ -1,6 +1,6 @@
+include($$PWD/catch/catch.pri)
 include($$PWD/../qt-ts-csv/3rdParty/3rdParty.pri)
 include($$PWD/../qt-ts-csv/src.pri)
-include($$PWD/catch/catch.pri)
 
 TEMPLATE = app
 CONFIG -= app_bundle

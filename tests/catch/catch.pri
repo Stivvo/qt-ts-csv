@@ -2,7 +2,8 @@ INCLUDEPATH += \
     $$PWD \
     $$PWD/Catch2 \
     $$PWD/Catch2/include/ \
-    $$PWD/Catch2/include/internal
+    $$PWD/Catch2/include/internal \
+    $$PWD/Catch2/single_include/
 
 HEADERS += \
     $$PWD/Catch2/include/catch.hpp \

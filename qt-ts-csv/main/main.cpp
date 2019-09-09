@@ -14,12 +14,15 @@ int main(int argc, char **argv)
     //    /home/stefano/Desktop/output.csv
 
     Converter c;
-    std::string arg1(argv[1]);
 
-    if (argc > 1 && arg1 == "--cli") {
+    if (argc > 1) {
+        std::string arg1(argv[1]);
+        if (arg1 != "--cli")
+            return 1;
+
         if (argc != 4) {
             std::cout << argc - 1 << " arguments, expected 3" << std::endl;
-            return 1;
+            return 2;
         }
         std::string source(argv[2]);
         std::string dest(argv[3]);
@@ -32,7 +35,6 @@ int main(int argc, char **argv)
 
         std::string convOutput = c.convert().toStdString();
         std::cout << convOutput << std::endl;
-
         return 0;
     } else {
         QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
