@@ -9,9 +9,9 @@ TEST_CASE("XLSX -> CSV")
     std::string f = TestHelper::absolute_path("xlsx_csv");
     SECTION("complete conversion")
     {
-        std::string fOut = f + "out.csv";
-        std::string fIn  = f + "exp.xlsx";
-        std::string fExp = f + "input.csv";
+        std::string fIn  = f + "input.xlsx";
+        std::string fOut = f + "output.csv";
+        std::string fExp = f + "expected.csv";
         auto fOut1       = fOut;
 
         TestHelper::instance.docs.emplace_back(fOut);
@@ -20,10 +20,6 @@ TEST_CASE("XLSX -> CSV")
         auto rOut = Reader().read(std::move(fOut1));
         auto rExp = Reader().read(std::move(fExp));
 
-        /*
-         * FIXME: this tests doesn't pass because it use the same files of
-         * CSV -> XLSX and there is a problem when open xlsx
-         */
         CHECK(rOut == rExp);
     }
 }
