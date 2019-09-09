@@ -8,10 +8,10 @@ TEST_CASE("CSV -> XLSX")
 {
     SECTION("conversion")
     {
-        const auto f = TestHelper::absolute_path("xlsx_csv");
+        const auto f = TestHelper::absolute_path("csv_xlsx");
 
-        auto fOut  = f + "out.xlsx";
         auto fIn   = f + "input.csv";
+        auto fOut  = f + "out.xlsx";
         auto fExp  = f + "exp.xlsx";
         auto fOut1 = fOut;
 

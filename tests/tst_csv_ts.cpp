@@ -9,8 +9,8 @@ TEST_CASE("CSV -> TS")
     std::string f = TestHelper::absolute_path("csv_ts");
     SECTION("complete conversion")
     {
-        std::string fOut = f + "out.ts";
         std::string fIn  = f + "in.csv";
+        std::string fOut = f + "out.ts";
         std::string fExp = f + "exp.ts";
         auto fOut1       = fOut;
 

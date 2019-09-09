@@ -7,15 +7,15 @@
 bool cmp_file(const std::string &in, const std::string &out,
               const std::string &exp)
 {
-    std::string f    = TestHelper::absolute_path("csv_ts");
-    std::string fOut = f + out;
+    std::string f    = TestHelper::absolute_path("ts_csv");
     std::string fIn  = f + in;
-    auto fOut1       = fOut;
+    std::string fOut = f + out;
+    auto fExp        = fOut;
 
     TestHelper::instance.docs.emplace_back(fOut);
     Ts2Csv().convert(std::move(fIn), std::string(std::move(fOut)));
 
-    auto rOut = Reader().read(std::move(fOut1));
+    auto rOut = Reader().read(std::move(fExp));
     return rOut == exp;
 }
 
