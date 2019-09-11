@@ -23,7 +23,3 @@ script:
   - cd build
   - /opt/qt512/bin/qmake ../qt-linguist-to-csv.pro
   - make -j$(nproc)
-  - sudo ./../scripts/cov.sh
-
-after_success: 
-  - bash <(curl -s https://codecov.io/bash)
