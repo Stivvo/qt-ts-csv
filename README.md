@@ -12,7 +12,7 @@ one of those extensions are required in the file names: .csv .ts .xlsx
 
 ## Build
 ~~~
-sudo apt install qt5-default qtdeclarative5-dev qml-module-qtquick-controls2 libqt5-declarative-particles q2tdeclarative5-dev qml-module-qt-labs-platform qml-module-qtquick-dialogs qml-module-qtquick-layouts
+sudo apt install qt5-default qml-module-qtquick-controls2 qtdeclarative5-dev qml-module-qt-labs-platform qml-module-qtquick-dialogs qml-module-qtquick-layouts
 git clone --recursive https://github.com/guerinoni/qt-ts-csv.git
 mkdir build-qt-ts-csv
 cd build-qt-ts-csv
