@@ -1,75 +1,75 @@
 #include "TestHelper.hpp"
 
+#include <exception>
 #include <experimental/filesystem>
-#include <iostream>
 
-std::string TestHelper::sp;
-std::string TestHelper::pth;
-std::list<std::string> TestHelper::docs;
-std::vector<std::string> TestHelper::to = { "ts_csv",  "csv_ts",   "ts_xlsx",
-                                            "xlsx_ts", "xlsx_csv", "csv_xlsx" };
+TestHelper TestHelper::instance;
+// std::string TestHelper::fullPath(const std::string &fldr)
+//{
+//    return pth + fldr + sp;
+//}
 
-void TestHelper::init()
+// std::string TestHelper::findDiff(const std::string &docReaded,
+//                                 const std::string &expected)
+//{
+//    std::string diffs;
+//    unsigned long j = 0;
+
+//    for (char i : expected) {
+//        if (i == docReaded[j])
+//            ++j;
+//        else
+//            diffs += i;
+//    }
+//    std::cout << "docReaded: " << std::endl << docReaded << std::endl;
+//    std::cout << "expected: " << std::endl << expected << std::endl;
+
+//    std::cout << "docReaded size: " << docReaded.size() << std::endl;
+//    std::cout << "expected size: " << expected.size() << std::endl;
+//    std::cout << "j: " << j << ", diffs.size: " << diffs.size() << std::endl
+//              << std::endl;
+
+//    return diffs;
+//}
+// bool TestHelper::ToRun(const std::string &s)
+//{
+//    for (std::string i : to) {
+//        if (i == s)
+//            return true;
+//    }
+//    return false;
+//}
+
+std::string TestHelper::absolute_path(const std::string &fldr)
 {
-    //        start sp based on the user's platform
+    return TestHelper::instance.pth + fldr + TestHelper::instance.sp;
+}
+
+TestHelper::TestHelper()
+{
 #ifdef _WIN32
     sp = "\\";
 #else
     sp = "/";
 #endif
 
-    // start pth based on the current path position + test files path
     auto current = std::experimental::filesystem::current_path();
     auto str     = current.string();
     auto it      = str.find("build");
     if (it == std::string::npos) {
-        return;
+        throw std::logic_error("can't find build directory, "
+                               "please call it build<optional>");
     }
+
     str.erase(it, str.size());
     pth = str + "qt-ts-csv" + sp + "tests" + sp + "files" + sp;
 }
-void TestHelper::teardown()
-{
-    while (!docs.empty()) {
-        std::experimental::filesystem::remove(docs.front());
-        docs.pop_front();
-    }
-}
-std::string TestHelper::fullPath(const std::string &fldr)
-{
-    return pth + fldr + sp;
-}
-void TestHelper::pushDocs(const std::string &doc)
-{
-    docs.push_front(doc);
-}
-std::string TestHelper::findDiff(const std::string &docReaded,
-                                 const std::string &expected)
-{
-    std::string diffs;
-    unsigned long j = 0;
 
-    for (char i : expected) {
-        if (i == docReaded[j])
-            ++j;
-        else
-            diffs += i;
-    }
-    std::cout << "docReaded: " << std::endl << docReaded << std::endl;
-    std::cout << "expected: " << std::endl << expected << std::endl;
-
-    std::cout << "docReaded size: " << docReaded.size() << std::endl;
-    std::cout << "expected size: " << expected.size() << std::endl;
-    std::cout << "j: " << j << ", diffs.size: " << diffs.size() << std::endl
-              << std::endl;
-
-    return diffs;
-}
-bool TestHelper::ToRun(const std::string &s)
+TestHelper::~TestHelper()
 {
-    for (std::string i : to) {
-        if (i == s)
-            return true;
+    for (auto &doc : docs) {
+        std::experimental::filesystem::remove(doc);
     }
-    return false;
+
+    docs.clear();
 }
